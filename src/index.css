@@ -1,0 +1,267 @@
+/* DealDesk Global Styles
+   80s Wall Street meets E*TRADE aesthetic
+   ========================================= */
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+/* Tailwind Base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables for consistent theming */
+:root {
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Monaco, 'Courier New', monospace;
+  
+  /* Colors - 80s Wall Street Palette */
+  --color-midnight: #0f172a;
+  --color-navy: #1e293b;
+  --color-slate: #334155;
+  --color-emerald: #10b981;
+  --color-emerald-bright: #34d399;
+  --color-cyan: #06b6d4;
+  --color-gold: #fbbf24;
+  --color-red-ticker: #ef4444;
+  --color-green-ticker: #22c55e;
+}
+
+/* Base Typography Classes */
+@layer base {
+  html {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Headlines - Playfair Display */
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Financial figures - IBM Plex Mono */
+  .font-mono, code, .financial-figure {
+    font-family: var(--font-mono);
+    font-feature-settings: 'tnum' on, 'lnum' on;
+  }
+}
+
+/* Custom Utility Classes */
+@layer components {
+  /* Wall Street style price displays */
+  .price-display {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    letter-spacing: -0.02em;
+  }
+  
+  .price-up {
+    color: var(--color-green-ticker);
+  }
+  
+  .price-down {
+    color: var(--color-red-ticker);
+  }
+  
+  /* Deal ID / Reference codes */
+  .deal-id {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  
+  /* Status pills */
+  .status-pill {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+  }
+  
+  /* Card headers */
+  .card-header {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+  }
+  
+  /* Stat labels */
+  .stat-label {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Stat values - big numbers */
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  
+  /* Navigation items */
+  .nav-item {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  /* Form labels */
+  .form-label {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  /* Input fields */
+  .form-input {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid #475569;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: white;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-emerald);
+  }
+  
+  .form-input::placeholder {
+    color: #64748b;
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    font-family: var(--font-body);
+    font-weight: 700;
+    background: var(--color-emerald);
+    color: var(--color-midnight);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+  }
+  
+  .btn-primary:hover {
+    background: var(--color-emerald-bright);
+    transform: translateY(-1px);
+  }
+  
+  .btn-secondary {
+    font-family: var(--font-body);
+    font-weight: 600;
+    background: rgba(51, 65, 85, 0.5);
+    color: #e2e8f0;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #475569;
+    transition: all 0.2s;
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(71, 85, 105, 0.5);
+    border-color: #64748b;
+  }
+  
+  /* Table styles */
+  .table-header {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+  }
+  
+  .table-cell {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+  }
+  
+  .table-cell-mono {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-midnight);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-slate);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-emerald);
+  color: var(--color-midnight);
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-emerald);
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
