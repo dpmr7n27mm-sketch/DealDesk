@@ -1,265 +1,491 @@
-/* DealDesk v2 — Blade Runner 2049 Aesthetic
-   Clean, futuristic, glassmorphism
-   ========================================= */
+/* ============================================
+   DEALDESK - Global Styles
+   Blade Runner 2049 Command Center Aesthetic
+   ============================================ */
 
-/* Google Fonts Import - Futuristic sans-serif stack */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
-/* Tailwind Base */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables */
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================ */
 :root {
-  /* Typography */
-  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, monospace;
-  
-  /* Colors - Blade Runner 2049 Palette */
-  --color-void: #000000;
-  --color-deep: #0a0a0f;
-  --color-surface: #12121a;
-  --color-elevated: #1a1a24;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-light: rgba(255, 255, 255, 0.12);
+  /* Background Colors */
+  --bg-deepest: #030712;
+  --bg-deep: #0a0f1a;
+  --bg-surface: #111827;
+  --bg-elevated: #1f2937;
   
   /* Accent Colors */
-  --color-cyan: #22d3ee;
-  --color-cyan-glow: rgba(34, 211, 238, 0.4);
-  --color-emerald: #34d399;
-  --color-amber: #fbbf24;
-  --color-rose: #fb7185;
+  --cyan-glow: #22d3ee;
+  --cyan-bright: #06b6d4;
+  --cyan-dim: #0891b2;
+  --emerald-glow: #10b981;
+  --emerald-bright: #059669;
+  --emerald-dim: #047857;
   
-  /* Text */
-  --color-text: rgba(255, 255, 255, 0.9);
-  --color-text-muted: rgba(255, 255, 255, 0.5);
-  --color-text-dim: rgba(255, 255, 255, 0.3);
+  /* Text Colors */
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  
+  /* Glass Properties */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.06);
+  
+  /* Glow Properties */
+  --glow-cyan: 0 0 20px rgba(34, 211, 238, 0.3);
+  --glow-cyan-intense: 0 0 30px rgba(34, 211, 238, 0.5);
+  --glow-emerald: 0 0 20px rgba(16, 185, 129, 0.3);
+  --glow-emerald-intense: 0 0 30px rgba(16, 185, 129, 0.5);
 }
 
-/* Base Typography */
+/* ============================================
+   Base Styles
+   ============================================ */
 @layer base {
   html {
-    font-family: var(--font-sans);
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: var(--color-void);
-    color: var(--color-text);
   }
-  
+
   body {
-    background: linear-gradient(180deg, var(--color-deep) 0%, var(--color-void) 100%);
+    @apply text-gray-100;
+    background: linear-gradient(
+      180deg,
+      var(--bg-deepest) 0%,
+      var(--bg-deep) 50%,
+      var(--bg-surface) 100%
+    );
+    background-attachment: fixed;
     min-height: 100vh;
   }
-  
-  /* Clean sans-serif for all headings */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-sans);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-  
-  /* Monospace for data/numbers */
-  .font-mono, code {
-    font-family: var(--font-mono);
-    font-feature-settings: 'tnum' on, 'lnum' on;
+
+  /* Monospace for financial figures */
+  .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
   }
 }
 
-/* Custom Utility Classes */
+/* ============================================
+   Component Classes
+   ============================================ */
 @layer components {
-  /* Glassmorphism card */
-  .glass {
-    background: rgba(255, 255, 255, 0.03);
+  /* ------------------------------------
+     Glassmorphism Cards
+     ------------------------------------ */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .glass-card:hover {
+    background: var(--glass-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-card-solid {
+    background: rgba(17, 24, 39, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+  }
+
+  /* ------------------------------------
+     Glassmorphism Navigation
+     ------------------------------------ */
+  .glass-nav {
+    background: rgba(3, 7, 18, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
   }
-  
-  .glass-elevated {
+
+  .glass-nav-item {
+    @apply px-4 py-2 text-sm font-medium transition-all duration-200;
+    color: var(--text-secondary);
+  }
+
+  .glass-nav-item:hover {
+    color: var(--text-primary);
+  }
+
+  .glass-nav-item.active {
+    color: var(--cyan-glow);
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+  }
+
+  /* ------------------------------------
+     Bottom Navigation Pill
+     ------------------------------------ */
+  .bottom-nav-pill {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    background: rgba(3, 7, 18, 0.9);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 8px 12px;
+    box-shadow: 
+      0 4px 24px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .bottom-nav-item {
+    @apply flex flex-col items-center justify-center px-4 py-2 rounded-xl transition-all duration-200;
+    color: var(--text-muted);
+    min-width: 60px;
+  }
+
+  .bottom-nav-item:hover {
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .bottom-nav-item.active {
+    color: var(--cyan-glow);
+    background: rgba(34, 211, 238, 0.1);
+  }
+
+  .bottom-nav-item.active svg {
+    filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.6));
+  }
+
+  /* ------------------------------------
+     Creator/Buyer Toggle
+     ------------------------------------ */
+  .mode-toggle {
+    @apply flex items-center gap-1 p-1 rounded-full;
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--glass-border);
   }
-  
-  /* Price display - clean monospace */
-  .price {
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-feature-settings: 'tnum' on, 'lnum' on;
-    letter-spacing: -0.02em;
+
+  .mode-toggle-option {
+    @apply px-4 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all duration-200;
+    color: var(--text-muted);
   }
-  
-  /* Deal ID / Reference codes */
-  .code {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 500;
+
+  .mode-toggle-option:hover {
+    color: var(--text-secondary);
+  }
+
+  .mode-toggle-option.active {
+    background: var(--cyan-glow);
+    color: var(--bg-deepest);
+    box-shadow: var(--glow-cyan);
+  }
+
+  /* ------------------------------------
+     Status Pills
+     ------------------------------------ */
+  .status-pill {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider;
+    font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
   }
-  
-  /* Status pills */
-  .status {
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
+
+  .status-new {
+    @apply bg-cyan-500/20 text-cyan-400;
+    box-shadow: inset 0 0 12px rgba(34, 211, 238, 0.2);
   }
-  
-  /* Section labels */
-  .label {
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-text-dim);
+
+  .status-pending {
+    @apply bg-amber-500/20 text-amber-400;
+    box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.2);
   }
-  
-  /* Large stat numbers */
-  .stat-value {
-    font-family: var(--font-mono);
-    font-size: 1.875rem;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.03em;
+
+  .status-paid {
+    @apply bg-emerald-500/20 text-emerald-400;
+    box-shadow: inset 0 0 12px rgba(16, 185, 129, 0.2);
   }
-  
-  /* Button styles */
+
+  .status-delivered {
+    @apply bg-violet-500/20 text-violet-400;
+    box-shadow: inset 0 0 12px rgba(139, 92, 246, 0.2);
+  }
+
+  .status-closed {
+    @apply bg-gray-500/20 text-gray-400;
+  }
+
+  .status-declined {
+    @apply bg-red-500/20 text-red-400;
+    box-shadow: inset 0 0 12px rgba(239, 68, 68, 0.2);
+  }
+
+  /* ------------------------------------
+     Deal Type Badges
+     ------------------------------------ */
+  .deal-type-badge {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wider;
+  }
+
+  .deal-type-license {
+    @apply bg-blue-500/10 text-blue-400 border border-blue-500/20;
+  }
+
+  .deal-type-stems {
+    @apply bg-purple-500/10 text-purple-400 border border-purple-500/20;
+  }
+
+  .deal-type-custom {
+    @apply bg-orange-500/10 text-orange-400 border border-orange-500/20;
+  }
+
+  .deal-type-commission {
+    @apply bg-pink-500/10 text-pink-400 border border-pink-500/20;
+  }
+
+  /* ------------------------------------
+     Buttons
+     ------------------------------------ */
   .btn-primary {
-    background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-emerald) 100%);
-    color: var(--color-void);
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.75rem;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 20px var(--color-cyan-glow);
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold transition-all duration-200;
+    background: linear-gradient(135deg, var(--emerald-glow) 0%, var(--emerald-bright) 100%);
+    color: white;
+    box-shadow: var(--glow-emerald);
   }
-  
+
   .btn-primary:hover {
+    box-shadow: var(--glow-emerald-intense);
     transform: translateY(-1px);
-    box-shadow: 0 8px 30px var(--color-cyan-glow);
   }
-  
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
   .btn-secondary {
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold transition-all duration-200;
     background: rgba(255, 255, 255, 0.05);
-    color: var(--color-text);
-    font-weight: 500;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
-    transition: all 0.2s ease;
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
   }
-  
+
   .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.08);
-    border-color: var(--color-border-light);
+    border-color: rgba(255, 255, 255, 0.15);
   }
-  
-  /* Input fields */
-  .input {
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200;
+    color: var(--text-secondary);
+  }
+
+  .btn-ghost:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .btn-cyan {
+    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold transition-all duration-200;
+    background: linear-gradient(135deg, var(--cyan-glow) 0%, var(--cyan-bright) 100%);
+    color: var(--bg-deepest);
+    box-shadow: var(--glow-cyan);
+  }
+
+  .btn-cyan:hover {
+    box-shadow: var(--glow-cyan-intense);
+    transform: translateY(-1px);
+  }
+
+  /* ------------------------------------
+     Form Inputs
+     ------------------------------------ */
+  .input-glass {
+    @apply w-full px-4 py-3 rounded-lg text-gray-100 placeholder-gray-500 transition-all duration-200;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--color-border);
-    border-radius: 0.75rem;
-    padding: 0.75rem 1rem;
-    color: var(--color-text);
-    font-family: var(--font-sans);
-    transition: all 0.2s ease;
+    border: 1px solid var(--glass-border);
   }
-  
-  .input:focus {
+
+  .input-glass:focus {
     outline: none;
-    border-color: var(--color-cyan);
-    box-shadow: 0 0 0 3px var(--color-cyan-glow);
+    border-color: var(--cyan-dim);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
   }
-  
-  .input::placeholder {
-    color: var(--color-text-dim);
+
+  .input-glass:hover:not(:focus) {
+    border-color: rgba(255, 255, 255, 0.15);
   }
-  
-  /* Glow effects */
+
+  /* ------------------------------------
+     Typography Utilities
+     ------------------------------------ */
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, var(--cyan-glow) 0%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-emerald {
+    background: linear-gradient(135deg, var(--emerald-glow) 0%, #6ee7b7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .label-caps {
+    @apply text-xs font-semibold uppercase tracking-wider;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  /* ------------------------------------
+     Financial Figures (Monospace)
+     ------------------------------------ */
+  .price-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .deal-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+@layer utilities {
+  /* Glow Effects */
   .glow-cyan {
-    box-shadow: 0 0 20px var(--color-cyan-glow);
+    box-shadow: var(--glow-cyan);
   }
-  
+
+  .glow-cyan-intense {
+    box-shadow: var(--glow-cyan-intense);
+  }
+
+  .glow-emerald {
+    box-shadow: var(--glow-emerald);
+  }
+
+  .glow-emerald-intense {
+    box-shadow: var(--glow-emerald-intense);
+  }
+
   .text-glow-cyan {
-    text-shadow: 0 0 20px var(--color-cyan-glow);
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+  }
+
+  .text-glow-emerald {
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  }
+
+  /* Background Utilities */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .bg-scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* Animation Utilities */
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+    }
+  }
+
+  /* Scrollbar Styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Safe Area for Bottom Nav */
+  .pb-safe-bottom {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+@media (min-width: 768px) {
+  .bottom-nav-pill {
+    bottom: 24px;
+    padding: 10px 16px;
+  }
+
+  .bottom-nav-item {
+    @apply px-5 py-2.5;
+    min-width: 72px;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Selection */
-::selection {
-  background: var(--color-cyan);
-  color: var(--color-void);
-}
-
-/* Focus visible for accessibility */
-:focus-visible {
-  outline: 2px solid var(--color-cyan);
-  outline-offset: 2px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes glow {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-/* Scanline effect (subtle) */
-.scanlines::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.1) 2px,
-    rgba(0, 0, 0, 0.1) 4px
-  );
-  pointer-events: none;
-  opacity: 0.3;
+/* Larger screens - can optionally hide bottom nav */
+@media (min-width: 1024px) {
+  .bottom-nav-pill {
+    /* Keep bottom nav on all screens for consistency */
+    /* Or uncomment below to hide on desktop: */
+    /* display: none; */
+  }
 }
