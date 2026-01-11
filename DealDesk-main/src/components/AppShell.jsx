@@ -2,163 +2,152 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 export default function AppShell() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [viewMode, setViewMode] = useState('creator'); // 'creator' or 'buyer'
   const location = useLocation();
 
-  const navItems = [
-    { id: 'deals', path: '/deals', label: 'Deals', icon: '📋', badge: 12 },
-    { id: 'activity', path: '/activity', label: 'Activity', icon: '🔔', badge: 3 },
-    { id: 'connections', path: '/connections', label: 'Connections', icon: '🤝' },
-    { id: 'links', path: '/links', label: 'Deal Links', icon: '🔗' },
-    { id: 'stems', path: '/stems', label: 'Stems Codes', icon: '🎛️' },
-    { id: 'analytics', path: '/analytics', label: 'Analytics', icon: '📊' },
-    { id: 'invites', path: '/invites', label: 'Invites', icon: '✉️' },
-    { id: 'delivery', path: '/delivery', label: 'Delivery', icon: '📦' },
-    { id: 'settings', path: '/settings', label: 'Settings', icon: '⚙️' },
+  const creatorNav = [
+    { path: '/deals', label: 'Deals', icon: '◈' },
+    { path: '/activity', label: 'Activity', icon: '◉' },
+    { path: '/links', label: 'Links', icon: '◇' },
+    { path: '/analytics', label: 'Analytics', icon: '▣' },
+    { path: '/settings', label: 'Settings', icon: '⚙' },
   ];
 
-  const buyerViews = [
-    { path: '/store/demo', label: 'Instant Access', icon: '🏪' },
-    { path: '/request/demo', label: 'Request Forms', icon: '📝' },
-    { path: '/deal/demo/action', label: 'One-Click Pages', icon: '✅' },
-    { path: '/buyer', label: 'Buyer Dashboard', icon: '👤' },
+  const buyerNav = [
+    { path: '/store/demo', label: 'Store', icon: '◈' },
+    { path: '/request/demo', label: 'Request', icon: '◇' },
+    { path: '/deal/demo/action', label: 'Actions', icon: '▣' },
+    { path: '/buyer', label: 'My Deals', icon: '◉' },
   ];
+
+  const navItems = viewMode === 'creator' ? creatorNav : buyerNav;
 
   const currentPath = location.pathname;
-  const currentNav = navItems.find(n => currentPath === n.path || currentPath.startsWith(n.path + '/'));
-  const pageTitle = currentNav?.label || (currentPath === '/' ? 'Deals' : 'DealDesk');
-
-  const handleNavClick = () => {
-    setSidebarOpen(false);
+  const getPageTitle = () => {
+    const allItems = [...creatorNav, ...buyerNav];
+    const match = allItems.find(n => currentPath === n.path || currentPath.startsWith(n.path.split('/')[1]));
+    if (currentPath === '/' || currentPath === '/deals') return 'DEALS';
+    if (match) return match.label.toUpperCase();
+    return 'DEALDESK';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 flex">
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
+    <div className="min-h-screen bg-black text-white font-sans">
+      {/* Subtle grid background */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,255,255,0.5) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(0,255,255,0.5) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}
+      />
+      
+      {/* Gradient overlay */}
+      <div className="fixed inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-black pointer-events-none" />
 
-      {/* Sidebar */}
-      <aside className={`
-        fixed top-0 left-0 h-full w-64 z-40
-        bg-gradient-to-b from-slate-900 to-slate-800 border-r border-slate-700
-        transform transition-transform duration-300 ease-in-out flex flex-col
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        lg:translate-x-0 lg:relative
-      `}>
-        {/* Logo */}
-        <div className="p-4 border-b border-slate-700 flex-shrink-0">
-          <NavLink to="/" className="flex items-center gap-3" onClick={handleNavClick}>
-            <div className="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-slate-900 font-bold text-lg font-mono">D</span>
-            </div>
-            <span className="font-display text-white text-xl font-bold tracking-wide">
-              DealDesk
-            </span>
-          </NavLink>
-        </div>
-
-        {/* Navigation - Scrollable */}
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-          {/* Main Nav Items */}
-          {navItems.map((item) => (
-            <NavLink
-              key={item.id}
-              to={item.path}
-              onClick={handleNavClick}
-              className={({ isActive }) => `w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all ${
-                isActive || (item.path === '/deals' && location.pathname === '/')
-                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-700/50 border border-transparent'
-              }`}
-            >
-              <span className="text-xl flex-shrink-0">{item.icon}</span>
-              <span className="flex-1 text-left text-sm font-semibold truncate">{item.label}</span>
-              {item.badge && (
-                <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-slate-700 text-slate-300">
-                  {item.badge}
-                </span>
-              )}
-            </NavLink>
-          ))}
+      {/* Top Bar */}
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <div className="relative">
+          {/* Glassmorphism background */}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-xl border-b border-white/5" />
           
-          {/* Buyer Views Section */}
-          <div className="pt-4 mt-4 border-t border-slate-700">
-            <p className="text-slate-500 text-xs uppercase tracking-wider mb-2 px-3">Buyer Views</p>
-            {buyerViews.map((item) => (
-              <NavLink 
-                key={item.path}
-                to={item.path} 
-                onClick={handleNavClick}
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:text-cyan-400 hover:bg-slate-700/30 transition-all text-sm"
+          <div className="relative px-4 py-3 flex items-center justify-between">
+            {/* View Toggle - Left */}
+            <div className="flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/10">
+              <button
+                onClick={() => setViewMode('creator')}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-widest transition-all ${
+                  viewMode === 'creator'
+                    ? 'bg-cyan-500/20 text-cyan-400 shadow-lg shadow-cyan-500/20'
+                    : 'text-white/40 hover:text-white/60'
+                }`}
               >
-                <span>{item.icon}</span>
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
-          </div>
-        </nav>
-
-        {/* User Profile */}
-        <div className="p-4 border-t border-slate-700 flex-shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-xl flex items-center justify-center text-slate-900 font-bold text-sm flex-shrink-0">
-              KS
-            </div>
-            <div className="min-w-0">
-              <p className="text-white font-semibold text-sm truncate">KVNG SAUCE</p>
-              <p className="text-slate-500 text-xs truncate">Trusted Creator</p>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content Area */}
-      <main className="flex-1 min-w-0">
-        {/* Top Bar */}
-        <div className="bg-slate-900/50 backdrop-blur-sm border-b border-slate-700/50 px-4 py-4 sticky top-0 z-20">
-          <div className="flex items-center justify-between gap-4">
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="lg:hidden w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center text-white transition-colors"
-            >
-              ☰
-            </button>
-
-            <div className="min-w-0 flex-1">
-              <h1 className="font-display text-lg sm:text-xl font-bold text-white truncate tracking-tight">
-                {pageTitle}
-              </h1>
+                CREATOR
+              </button>
+              <button
+                onClick={() => setViewMode('buyer')}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-widest transition-all ${
+                  viewMode === 'buyer'
+                    ? 'bg-cyan-500/20 text-cyan-400 shadow-lg shadow-cyan-500/20'
+                    : 'text-white/40 hover:text-white/60'
+                }`}
+              >
+                BUYER
+              </button>
             </div>
 
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <NavLink 
-                to="/deals" 
-                className="px-3 sm:px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold text-xs sm:text-sm rounded-lg transition-colors whitespace-nowrap"
-              >
-                + New Deal
-              </NavLink>
-              <NavLink 
-                to="/activity"
-                className="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center text-slate-400 transition-colors relative flex-shrink-0"
-              >
-                🔔
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-xs text-white font-bold">3</span>
-              </NavLink>
+            {/* Page Title - Center */}
+            <h1 className="absolute left-1/2 -translate-x-1/2 text-sm font-light tracking-[0.3em] text-white/60">
+              {getPageTitle()}
+            </h1>
+
+            {/* User Avatar - Right */}
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center text-black text-xs font-bold">
+                  KS
+                </div>
+                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-black" />
+              </div>
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Screen Content */}
-        <div className="p-4 sm:p-6">
-          <Outlet />
-        </div>
+      {/* Main Content */}
+      <main className="relative z-10 pt-16 pb-24 px-4">
+        <Outlet />
       </main>
+
+      {/* Bottom Navigation - Glassmorphism Pill */}
+      <nav className="fixed bottom-4 left-4 right-4 z-50">
+        <div className="relative max-w-md mx-auto">
+          {/* Glow effect */}
+          <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-full" />
+          
+          {/* Glass container */}
+          <div className="relative bg-black/60 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl shadow-black/50">
+            <div className="flex items-center justify-around px-2 py-2">
+              {navItems.map((item) => {
+                const isActive = currentPath === item.path || 
+                  (item.path === '/deals' && currentPath === '/') ||
+                  currentPath.startsWith(item.path);
+                
+                return (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all ${
+                      isActive
+                        ? 'text-cyan-400'
+                        : 'text-white/40 hover:text-white/70'
+                    }`}
+                  >
+                    {/* Icon with glow when active */}
+                    <span className={`text-lg transition-all ${
+                      isActive ? 'drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]' : ''
+                    }`}>
+                      {item.icon}
+                    </span>
+                    
+                    {/* Label */}
+                    <span className={`text-[10px] font-medium tracking-wider uppercase transition-all ${
+                      isActive ? 'text-cyan-400' : ''
+                    }`}>
+                      {item.label}
+                    </span>
+                    
+                    {/* Active indicator dot */}
+                    {isActive && (
+                      <div className="absolute -bottom-1 w-1 h-1 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" />
+                    )}
+                  </NavLink>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
   );
 }
