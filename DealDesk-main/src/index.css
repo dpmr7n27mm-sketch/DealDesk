@@ -1,51 +1,66 @@
-/* DealDesk Global Styles
-   80s Wall Street meets E*TRADE aesthetic
+/* DealDesk v2 — Blade Runner 2049 Aesthetic
+   Clean, futuristic, glassmorphism
    ========================================= */
 
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+/* Google Fonts Import - Futuristic sans-serif stack */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 /* Tailwind Base */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables for consistent theming */
+/* CSS Variables */
 :root {
   /* Typography */
-  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'IBM Plex Mono', 'SF Mono', Monaco, 'Courier New', monospace;
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, monospace;
   
-  /* Colors - 80s Wall Street Palette */
-  --color-midnight: #0f172a;
-  --color-navy: #1e293b;
-  --color-slate: #334155;
-  --color-emerald: #10b981;
-  --color-emerald-bright: #34d399;
-  --color-cyan: #06b6d4;
-  --color-gold: #fbbf24;
-  --color-red-ticker: #ef4444;
-  --color-green-ticker: #22c55e;
+  /* Colors - Blade Runner 2049 Palette */
+  --color-void: #000000;
+  --color-deep: #0a0a0f;
+  --color-surface: #12121a;
+  --color-elevated: #1a1a24;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(255, 255, 255, 0.12);
+  
+  /* Accent Colors */
+  --color-cyan: #22d3ee;
+  --color-cyan-glow: rgba(34, 211, 238, 0.4);
+  --color-emerald: #34d399;
+  --color-amber: #fbbf24;
+  --color-rose: #fb7185;
+  
+  /* Text */
+  --color-text: rgba(255, 255, 255, 0.9);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-text-dim: rgba(255, 255, 255, 0.3);
 }
 
-/* Base Typography Classes */
+/* Base Typography */
 @layer base {
   html {
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: var(--color-void);
+    color: var(--color-text);
   }
   
-  /* Headlines - Playfair Display */
-  h1, h2, h3, .font-display {
-    font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.01em;
+  body {
+    background: linear-gradient(180deg, var(--color-deep) 0%, var(--color-void) 100%);
+    min-height: 100vh;
   }
   
-  /* Financial figures - IBM Plex Mono */
-  .font-mono, code, .financial-figure {
+  /* Clean sans-serif for all headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Monospace for data/numbers */
+  .font-mono, code {
     font-family: var(--font-mono);
     font-feature-settings: 'tnum' on, 'lnum' on;
   }
@@ -53,188 +68,159 @@
 
 /* Custom Utility Classes */
 @layer components {
-  /* Wall Street style price displays */
-  .price-display {
+  /* Glassmorphism card */
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-border);
+  }
+  
+  .glass-elevated {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--color-border-light);
+  }
+  
+  /* Price display - clean monospace */
+  .price {
     font-family: var(--font-mono);
-    font-weight: 700;
+    font-weight: 600;
     font-feature-settings: 'tnum' on, 'lnum' on;
     letter-spacing: -0.02em;
   }
   
-  .price-up {
-    color: var(--color-green-ticker);
-  }
-  
-  .price-down {
-    color: var(--color-red-ticker);
-  }
-  
   /* Deal ID / Reference codes */
-  .deal-id {
+  .code {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    color: var(--color-text-muted);
   }
   
   /* Status pills */
-  .status-pill {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
+  .status {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.025em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
   }
   
-  /* Card headers */
-  .card-header {
-    font-family: var(--font-display);
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: white;
-  }
-  
-  /* Stat labels */
-  .stat-label {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
+  /* Section labels */
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
     font-weight: 500;
-    color: #94a3b8;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: var(--color-text-dim);
   }
   
-  /* Stat values - big numbers */
+  /* Large stat numbers */
   .stat-value {
     font-family: var(--font-mono);
     font-size: 1.875rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
   
-  /* Navigation items */
-  .nav-item {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-  
-  /* Form labels */
-  .form-label {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #94a3b8;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-  
-  /* Input fields */
-  .form-input {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid #475569;
-    border-radius: 0.75rem;
-    padding: 0.75rem 1rem;
-    color: white;
-    width: 100%;
-    transition: border-color 0.2s;
-  }
-  
-  .form-input:focus {
-    outline: none;
-    border-color: var(--color-emerald);
-  }
-  
-  .form-input::placeholder {
-    color: #64748b;
-  }
-  
-  /* Buttons */
+  /* Button styles */
   .btn-primary {
-    font-family: var(--font-body);
-    font-weight: 700;
-    background: var(--color-emerald);
-    color: var(--color-midnight);
+    background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-emerald) 100%);
+    color: var(--color-void);
+    font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.75rem;
-    transition: all 0.2s;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px var(--color-cyan-glow);
   }
   
   .btn-primary:hover {
-    background: var(--color-emerald-bright);
     transform: translateY(-1px);
+    box-shadow: 0 8px 30px var(--color-cyan-glow);
   }
   
   .btn-secondary {
-    font-family: var(--font-body);
-    font-weight: 600;
-    background: rgba(51, 65, 85, 0.5);
-    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text);
+    font-weight: 500;
     padding: 0.75rem 1.5rem;
     border-radius: 0.75rem;
-    border: 1px solid #475569;
-    transition: all 0.2s;
+    border: 1px solid var(--color-border);
+    transition: all 0.2s ease;
   }
   
   .btn-secondary:hover {
-    background: rgba(71, 85, 105, 0.5);
-    border-color: #64748b;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-border-light);
   }
   
-  /* Table styles */
-  .table-header {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #94a3b8;
+  /* Input fields */
+  .input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    transition: all 0.2s ease;
   }
   
-  .table-cell {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
+  .input:focus {
+    outline: none;
+    border-color: var(--color-cyan);
+    box-shadow: 0 0 0 3px var(--color-cyan-glow);
   }
   
-  .table-cell-mono {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
+  .input::placeholder {
+    color: var(--color-text-dim);
+  }
+  
+  /* Glow effects */
+  .glow-cyan {
+    box-shadow: 0 0 20px var(--color-cyan-glow);
+  }
+  
+  .text-glow-cyan {
+    text-shadow: 0 0 20px var(--color-cyan-glow);
   }
 }
 
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-midnight);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-slate);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Selection */
 ::selection {
-  background: var(--color-emerald);
-  color: var(--color-midnight);
+  background: var(--color-cyan);
+  color: var(--color-void);
 }
 
 /* Focus visible for accessibility */
 :focus-visible {
-  outline: 2px solid var(--color-emerald);
+  outline: 2px solid var(--color-cyan);
   outline-offset: 2px;
 }
 
@@ -244,24 +230,36 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-8px); }
-  to { opacity: 1; transform: translateX(0); }
+@keyframes glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
-.animate-slide-in {
-  animation: slideIn 0.3s ease-out;
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 2s infinite;
+/* Scanline effect (subtle) */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  opacity: 0.3;
 }
