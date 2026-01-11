@@ -21,13 +21,12 @@ export default function AppShell() {
   const currentNav = navItems.find(n => currentPath === n.path || currentPath.startsWith(n.path + '/'));
   const pageTitle = currentNav?.label || (currentPath === '/' ? 'Deals' : 'DealDesk');
 
-  // Close sidebar when navigating on mobile
   const handleNavClick = () => {
     setSidebarOpen(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 flex">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
@@ -40,12 +39,12 @@ export default function AppShell() {
       <aside className={`
         fixed top-0 left-0 h-full w-64 z-40
         bg-gradient-to-b from-slate-900 to-slate-800 border-r border-slate-700
-        transform transition-transform duration-300 ease-in-out
+        transform transition-transform duration-300 ease-in-out flex flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        lg:translate-x-0 lg:static lg:z-auto
+        lg:translate-x-0 lg:relative
       `}>
         {/* Logo */}
-        <div className="p-4 border-b border-slate-700">
+        <div className="p-4 border-b border-slate-700 flex-shrink-0">
           <NavLink to="/" className="flex items-center gap-3" onClick={handleNavClick}>
             <div className="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
               <span className="text-slate-900 font-bold text-lg font-mono">D</span>
@@ -57,7 +56,7 @@ export default function AppShell() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto h-[calc(100vh-180px)]">
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
           {navItems.map((item) => (
             <NavLink
               key={item.id}
@@ -78,10 +77,31 @@ export default function AppShell() {
               )}
             </NavLink>
           ))}
+          
+          {/* Buyer Views Section */}
+          <div className="pt-4 mt-4 border-t border-slate-700">
+            <p className="text-slate-500 text-xs uppercase tracking-wider mb-2 px-3">Buyer Views</p>
+            <NavLink to="/store/demo" onClick={handleNavClick}
+              className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:text-cyan-400 hover:bg-slate-700/30 transition-all text-sm">
+              <span>🏪</span><span>Instant Access</span>
+            </NavLink>
+            <NavLink to="/request/demo" onClick={handleNavClick}
+              className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:text-cyan-400 hover:bg-slate-700/30 transition-all text-sm">
+              <span>📝</span><span>Request Forms</span>
+            </NavLink>
+            <NavLink to="/deal/demo/action" onClick={handleNavClick}
+              className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:text-cyan-400 hover:bg-slate-700/30 transition-all text-sm">
+              <span>✅</span><span>One-Click Pages</span>
+            </NavLink>
+            <NavLink to="/buyer" onClick={handleNavClick}
+              className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:text-cyan-400 hover:bg-slate-700/30 transition-all text-sm">
+              <span>👤</span><span>Buyer Dashboard</span>
+            </NavLink>
+          </div>
         </nav>
 
         {/* User Profile */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700 bg-slate-900">
+        <div className="p-4 border-t border-slate-700 flex-shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-xl flex items-center justify-center text-slate-900 font-bold text-sm flex-shrink-0">
               KS
@@ -95,7 +115,7 @@ export default function AppShell() {
       </aside>
 
       {/* Main Content Area */}
-      <div className="lg:ml-64">
+      <main className="flex-1 min-w-0">
         {/* Top Bar */}
         <div className="bg-slate-900/50 backdrop-blur-sm border-b border-slate-700/50 px-4 py-4 sticky top-0 z-20">
           <div className="flex items-center justify-between gap-4">
@@ -135,7 +155,7 @@ export default function AppShell() {
         <div className="p-4 sm:p-6">
           <Outlet />
         </div>
-      </div>
+      </main>
     </div>
   );
 }
