@@ -20,7 +20,7 @@ import BuyerDashboard from './components/BuyerDashboard'
 export default function App() {
   return (
     <Routes>
-      {/* Creator-facing routes wrapped in AppShell */}
+      {/* All routes wrapped in AppShell for consistent navigation */}
       <Route path="/" element={<AppShell />}>
         <Route index element={<DealsListDashboard />} />
         <Route path="deals" element={<DealsListDashboard />} />
@@ -34,13 +34,13 @@ export default function App() {
         <Route path="settings" element={<CreatorSettings />} />
         <Route path="delivery" element={<DeliveryControls />} />
         <Route path="email-preview" element={<EmailPreview />} />
+        
+        {/* Buyer-facing routes now also inside AppShell */}
+        <Route path="store/:creatorId" element={<InstantAccess />} />
+        <Route path="request/:creatorId" element={<RequestForms />} />
+        <Route path="deal/:dealId/action" element={<OneClickPages />} />
+        <Route path="buyer" element={<BuyerDashboard />} />
       </Route>
-      
-      {/* Buyer-facing routes (standalone, no AppShell) */}
-      <Route path="/store/:creatorId" element={<InstantAccess />} />
-      <Route path="/request/:creatorId" element={<RequestForms />} />
-      <Route path="/deal/:dealId/action" element={<OneClickPages />} />
-      <Route path="/buyer" element={<BuyerDashboard />} />
       
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
