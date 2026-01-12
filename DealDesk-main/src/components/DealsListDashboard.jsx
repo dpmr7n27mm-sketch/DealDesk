@@ -101,11 +101,12 @@ const statusConfig = {
   'Blocked': 'status-blocked',
 };
 
+// Minimal type config - just letters
 const typeConfig = {
-  'License': { class: 'type-license', icon: '◈' },
-  'Stems': { class: 'type-stems', icon: '◉' },
-  'Commission': { class: 'type-commission', icon: '▣' },
-  'Custom Version': { class: 'type-custom', icon: '◇' },
+  'License': 'L',
+  'Stems': 'S',
+  'Commission': 'C',
+  'Custom Version': 'V',
 };
 
 const filters = ['All', 'New', 'Waiting on Me', 'Waiting on Buyer', 'Paid', 'Delivered'];
@@ -150,60 +151,39 @@ export default function DealsListDashboard() {
     <div className="space-y-6 animate-fade-in">
       
       {/* ==========================================
-          STATS ROW - Liquid Glass Pills
+          STATS ROW - Minimal Monochrome
           ========================================== */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className="glass-pill px-4 py-3 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-            <span className="text-emerald-400 text-lg">📋</span>
-          </div>
-          <div className="min-w-0">
-            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Active</p>
-            <p className="text-xl font-bold text-white font-mono">{stats.active}</p>
-          </div>
+        <div className="glass-pill px-5 py-4">
+          <p className="text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-1">Active</p>
+          <p className="text-2xl font-bold text-white font-mono">{stats.active}</p>
         </div>
 
-        <div className="glass-pill px-4 py-3 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-            <span className="text-amber-400 text-lg">⚡</span>
-          </div>
-          <div className="min-w-0">
-            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Action</p>
-            <p className="text-xl font-bold text-amber-400 font-mono">{stats.needsAction}</p>
-          </div>
+        <div className="glass-pill px-5 py-4">
+          <p className="text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-1">Action</p>
+          <p className="text-2xl font-bold text-amber-400 font-mono">{stats.needsAction}</p>
         </div>
 
-        <div className="glass-pill px-4 py-3 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-            <span className="text-cyan-400 text-lg">💰</span>
-          </div>
-          <div className="min-w-0">
-            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Pending</p>
-            <p className="text-xl font-bold text-cyan-400 font-mono">${stats.pendingPayment.toLocaleString()}</p>
-          </div>
+        <div className="glass-pill px-5 py-4">
+          <p className="text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-1">Pending</p>
+          <p className="text-2xl font-bold text-white font-mono">${stats.pendingPayment.toLocaleString()}</p>
         </div>
 
-        <div className="glass-pill px-4 py-3 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-            <span className="text-emerald-400 text-lg">✓</span>
-          </div>
-          <div className="min-w-0">
-            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Month</p>
-            <p className="text-xl font-bold text-emerald-400 font-mono">${stats.thisMonth.toLocaleString()}</p>
-          </div>
+        <div className="glass-pill px-5 py-4">
+          <p className="text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-1">Month</p>
+          <p className="text-2xl font-bold text-emerald-400 font-mono">${stats.thisMonth.toLocaleString()}</p>
         </div>
       </div>
 
       {/* ==========================================
-          DEAL PIPELINE - Solid Dark Panel
+          DEAL PIPELINE
           ========================================== */}
       <div className="solid-panel p-4 sm:p-6 space-y-4">
         
         {/* Header with Search */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h2 className="text-lg font-bold text-white tracking-tight">Deal Pipeline</h2>
+          <h2 className="text-lg font-semibold text-white tracking-tight">Deal Pipeline</h2>
           
-          {/* Search - Liquid Glass */}
           <div className="relative">
             <input
               type="text"
@@ -218,21 +198,21 @@ export default function DealsListDashboard() {
               stroke="currentColor" 
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
         </div>
 
-        {/* Filter Pills - Liquid Glass */}
+        {/* Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-1 px-1">
           {filters.map(filter => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 text-xs font-semibold tracking-wide uppercase whitespace-nowrap transition-all duration-200 rounded-full ${
+              className={`px-4 py-2 text-xs font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-200 rounded-full ${
                 activeFilter === filter
-                  ? 'bg-cyan-500 text-slate-900 shadow-lg glow-cyan-subtle'
-                  : 'glass-pill text-slate-400 hover:text-white'
+                  ? 'bg-white text-slate-900'
+                  : 'text-slate-500 hover:text-white border border-slate-700 hover:border-slate-600'
               }`}
             >
               {filter}
@@ -240,46 +220,47 @@ export default function DealsListDashboard() {
           ))}
         </div>
 
-        {/* Deals List - Solid Dark Cards */}
-        <div className="space-y-3">
+        {/* Deals List */}
+        <div className="space-y-2">
           {filteredDeals.map((deal) => (
             <div
               key={deal.id}
               onClick={() => handleDealClick(deal.id)}
               className="solid-card p-4 transition-all duration-200 cursor-pointer group"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center justify-between gap-4">
                 
-                {/* Left: Type Icon + Deal Info */}
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${typeConfig[deal.type]?.class || 'bg-slate-700'}`}>
-                    <span className="text-lg">{typeConfig[deal.type]?.icon || '📋'}</span>
+                {/* Left: Type + Deal Info */}
+                <div className="flex items-center gap-4 min-w-0 flex-1">
+                  {/* Type Letter */}
+                  <div className="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm font-mono font-semibold text-slate-400">
+                      {typeConfig[deal.type] || '?'}
+                    </span>
                   </div>
                   
+                  {/* Deal Details */}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-white font-semibold truncate group-hover:text-cyan-300 transition-colors">
+                      <span className="text-white font-medium truncate group-hover:text-cyan-400 transition-colors">
                         {deal.track}
                       </span>
                       <span className={`px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide rounded-full ${statusConfig[deal.status] || 'status-closed'}`}>
                         {deal.status}
                       </span>
                     </div>
-                    <p className="text-slate-500 text-sm truncate mt-0.5">
-                      {deal.requester.split('@')[0]}
-                      <span className="text-slate-600">@{deal.requester.split('@')[1]}</span>
-                      <span className="text-slate-600"> · </span>
-                      <span className="text-slate-500">{deal.type}</span>
+                    <p className="text-slate-600 text-sm truncate mt-0.5">
+                      {deal.requester}
                     </p>
                   </div>
                 </div>
 
                 {/* Right: Amount + Deadline */}
-                <div className="flex items-center justify-between sm:flex-col sm:items-end gap-1 flex-shrink-0 pl-13 sm:pl-0">
-                  <p className="text-emerald-400 font-bold font-mono text-lg">
+                <div className="text-right flex-shrink-0">
+                  <p className={`font-mono font-semibold ${deal.amount ? 'text-emerald-400' : 'text-slate-600'}`}>
                     {deal.amount ? `$${deal.amount.toLocaleString()}` : '—'}
                   </p>
-                  <p className="text-slate-500 text-xs font-mono">
+                  <p className="text-slate-600 text-xs font-mono mt-0.5">
                     {deal.deadline}
                   </p>
                 </div>
@@ -291,22 +272,18 @@ export default function DealsListDashboard() {
         {/* Empty State */}
         {filteredDeals.length === 0 && (
           <div className="text-center py-12">
-            <div className="w-16 h-16 rounded-full bg-slate-800/50 flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">🔍</span>
-            </div>
-            <p className="text-slate-400 font-medium">No deals match your filters</p>
-            <p className="text-slate-600 text-sm mt-1">Try adjusting your search or filter criteria</p>
+            <p className="text-slate-500">No deals match your filters</p>
           </div>
         )}
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-white/5">
-          <p className="text-sm text-slate-500">
-            Showing <span className="text-slate-300 font-semibold">{filteredDeals.length}</span> of <span className="text-slate-300 font-semibold">{sampleDeals.length}</span> deals
+          <p className="text-sm text-slate-600">
+            {filteredDeals.length} of {sampleDeals.length} deals
           </p>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse-glow"></span>
-            <span className="text-xs text-emerald-400 font-medium uppercase tracking-wider">Live</span>
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+            <span className="text-xs text-slate-600 font-medium uppercase tracking-wider">Live</span>
           </div>
         </div>
       </div>
