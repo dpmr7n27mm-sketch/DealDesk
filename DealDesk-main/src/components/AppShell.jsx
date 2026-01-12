@@ -47,11 +47,6 @@ const Icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
     </svg>
   ),
-  User: () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-    </svg>
-  ),
 };
 
 // ============================================
@@ -81,7 +76,6 @@ export default function AppShell() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Determine if current path is buyer-facing
   const isBuyerPath = 
     location.pathname.startsWith('/buyer') || 
     location.pathname.startsWith('/store') || 
@@ -90,12 +84,10 @@ export default function AppShell() {
   
   const [isCreatorMode, setIsCreatorMode] = useState(!isBuyerPath);
 
-  // Sync mode with route changes
   useEffect(() => {
     setIsCreatorMode(!isBuyerPath);
   }, [isBuyerPath]);
 
-  // Handle mode toggle
   const handleModeToggle = (mode) => {
     if (mode === 'creator' && !isCreatorMode) {
       setIsCreatorMode(true);
@@ -106,10 +98,8 @@ export default function AppShell() {
     }
   };
 
-  // Get current nav items based on mode
   const navItems = isCreatorMode ? creatorNavItems : buyerNavItems;
 
-  // Check if a path is active
   const isActivePath = (path) => {
     if (path === '/') {
       return location.pathname === '/' || location.pathname === '/deals';
@@ -117,11 +107,9 @@ export default function AppShell() {
     return location.pathname.startsWith(path);
   };
 
-  // Get page title from route
   const getPageTitle = () => {
     const path = location.pathname;
     
-    // Creator routes
     if (path === '/' || path === '/deals') return 'Deals';
     if (path.startsWith('/deals/')) return 'Deal Details';
     if (path === '/activity') return 'Activity';
@@ -134,7 +122,6 @@ export default function AppShell() {
     if (path === '/settings') return 'Settings';
     if (path === '/email-preview') return 'Email Preview';
     
-    // Buyer routes
     if (path === '/buyer') return 'My Deals';
     if (path.startsWith('/store/')) return 'Store';
     if (path.startsWith('/request/')) return 'New Request';
@@ -157,7 +144,7 @@ export default function AppShell() {
               onClick={() => handleModeToggle('creator')}
               className={`px-3 py-1.5 text-[10px] font-semibold tracking-widest uppercase transition-all duration-200 rounded-full ${
                 isCreatorMode
-                  ? 'bg-emerald-500 text-slate-900 shadow-lg glow-emerald-subtle'
+                  ? 'gradient-accent text-white shadow-lg glow-accent-subtle'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -167,7 +154,7 @@ export default function AppShell() {
               onClick={() => handleModeToggle('buyer')}
               className={`px-3 py-1.5 text-[10px] font-semibold tracking-widest uppercase transition-all duration-200 rounded-full ${
                 !isCreatorMode
-                  ? 'bg-cyan-500 text-slate-900 shadow-lg glow-cyan-subtle'
+                  ? 'gradient-accent text-white shadow-lg glow-accent-subtle'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -180,8 +167,8 @@ export default function AppShell() {
             {getPageTitle()}
           </h1>
 
-          {/* Avatar */}
-          <button className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center text-slate-900 font-bold text-xs hover:scale-105 transition-transform shadow-lg">
+          {/* Avatar - Purple-Red Gradient with Glass */}
+          <button className="w-9 h-9 rounded-full glass-avatar flex items-center justify-center text-white font-bold text-xs hover:scale-105 transition-transform">
             KS
           </button>
         </div>
@@ -217,22 +204,19 @@ export default function AppShell() {
                 to={item.path}
                 className={`flex flex-col items-center justify-center px-4 py-2 min-w-[60px] rounded-full transition-all duration-200 ${
                   isActive
-                    ? 'text-cyan-400'
+                    ? 'text-fuchsia-400'
                     : 'text-slate-500 hover:text-slate-300 active:scale-95'
                 }`}
+                style={isActive ? { filter: 'drop-shadow(0 0 8px rgba(217, 70, 239, 0.6))' } : {}}
               >
-                <span className={`transition-all duration-200 ${
-                  isActive ? 'drop-shadow-[0_0_8px_rgba(34,211,238,0.6)] scale-110' : ''
-                }`}>
+                <span className={`transition-all duration-200 ${isActive ? 'scale-110' : ''}`}>
                   <Icon />
                 </span>
-                <span className={`text-[9px] font-semibold tracking-wider uppercase mt-1 transition-colors ${
-                  isActive ? 'text-cyan-400' : ''
-                }`}>
+                <span className={`text-[9px] font-semibold tracking-wider uppercase mt-1`}>
                   {item.label}
                 </span>
                 {isActive && (
-                  <div className="w-1 h-1 rounded-full bg-cyan-400 mt-0.5 shadow-[0_0_6px_rgba(34,211,238,0.8)]" />
+                  <div className="w-1 h-1 rounded-full mt-0.5 gradient-accent shadow-[0_0_6px_rgba(139,92,246,0.8)]" />
                 )}
               </NavLink>
             );
