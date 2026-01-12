@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 
-// Simple inline SVG icons
+// ============================================
+// ICON COMPONENTS
+// ============================================
+
 const Icons = {
   Deals: () => (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -10,7 +13,7 @@ const Icons = {
   ),
   Activity: () => (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
     </svg>
   ),
   Links: () => (
@@ -31,35 +34,59 @@ const Icons = {
   ),
   MyDeals: () => (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+    </svg>
+  ),
+  Store: () => (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
     </svg>
   ),
-  Browse: () => (
+  Request: () => (
     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-    </svg>
-  ),
-  Requests: () => (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
     </svg>
   ),
   User: () => (
-    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
     </svg>
   ),
 };
 
+// ============================================
+// NAVIGATION CONFIGURATION
+// ============================================
+
+const creatorNavItems = [
+  { path: '/', icon: Icons.Deals, label: 'Deals' },
+  { path: '/activity', icon: Icons.Activity, label: 'Activity' },
+  { path: '/links', icon: Icons.Links, label: 'Links' },
+  { path: '/analytics', icon: Icons.Analytics, label: 'Analytics' },
+  { path: '/settings', icon: Icons.Settings, label: 'Settings' },
+];
+
+const buyerNavItems = [
+  { path: '/buyer', icon: Icons.MyDeals, label: 'My Deals' },
+  { path: '/store/demo', icon: Icons.Store, label: 'Store' },
+  { path: '/request/demo', icon: Icons.Request, label: 'Request' },
+  { path: '/settings', icon: Icons.Settings, label: 'Settings' },
+];
+
+// ============================================
+// MAIN COMPONENT
+// ============================================
+
 export default function AppShell() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Determine mode based on current path
-  const isBuyerPath = location.pathname.startsWith('/buyer') || 
-                      location.pathname.startsWith('/store') || 
-                      location.pathname.startsWith('/request') ||
-                      (location.pathname.startsWith('/deal/') && location.pathname.includes('/action'));
+  // Determine if current path is buyer-facing
+  const isBuyerPath = 
+    location.pathname.startsWith('/buyer') || 
+    location.pathname.startsWith('/store') || 
+    location.pathname.startsWith('/request') ||
+    (location.pathname.startsWith('/deal/') && location.pathname.includes('/action'));
   
   const [isCreatorMode, setIsCreatorMode] = useState(!isBuyerPath);
 
@@ -68,6 +95,7 @@ export default function AppShell() {
     setIsCreatorMode(!isBuyerPath);
   }, [isBuyerPath]);
 
+  // Handle mode toggle
   const handleModeToggle = (mode) => {
     if (mode === 'creator' && !isCreatorMode) {
       setIsCreatorMode(true);
@@ -78,35 +106,58 @@ export default function AppShell() {
     }
   };
 
-  const creatorNavItems = [
-    { path: '/', icon: Icons.Deals, label: 'Deals' },
-    { path: '/activity', icon: Icons.Activity, label: 'Activity' },
-    { path: '/links', icon: Icons.Links, label: 'Links' },
-    { path: '/analytics', icon: Icons.Analytics, label: 'Analytics' },
-    { path: '/settings', icon: Icons.Settings, label: 'Settings' },
-  ];
-
-  const buyerNavItems = [
-    { path: '/buyer', icon: Icons.MyDeals, label: 'My Deals' },
-    { path: '/store/browse', icon: Icons.Browse, label: 'Browse' },
-    { path: '/request/new', icon: Icons.Requests, label: 'Requests' },
-    { path: '/settings', icon: Icons.Settings, label: 'Settings' },
-  ];
-
+  // Get current nav items based on mode
   const navItems = isCreatorMode ? creatorNavItems : buyerNavItems;
 
+  // Check if a path is active
+  const isActivePath = (path) => {
+    if (path === '/') {
+      return location.pathname === '/' || location.pathname === '/deals';
+    }
+    return location.pathname.startsWith(path);
+  };
+
+  // Get page title from route
+  const getPageTitle = () => {
+    const path = location.pathname;
+    
+    // Creator routes
+    if (path === '/' || path === '/deals') return 'Deals';
+    if (path.startsWith('/deals/')) return 'Deal Details';
+    if (path === '/activity') return 'Activity';
+    if (path === '/links') return 'Deal Links';
+    if (path === '/stems') return 'Stems Codes';
+    if (path === '/analytics') return 'Analytics';
+    if (path === '/invites') return 'Invites';
+    if (path === '/connections') return 'Connections';
+    if (path === '/delivery') return 'Delivery';
+    if (path === '/settings') return 'Settings';
+    if (path === '/email-preview') return 'Email Preview';
+    
+    // Buyer routes
+    if (path === '/buyer') return 'My Deals';
+    if (path.startsWith('/store/')) return 'Store';
+    if (path.startsWith('/request/')) return 'New Request';
+    if (path.includes('/action')) return 'Deal Portal';
+    
+    return 'DealDesk';
+  };
+
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100">
-      {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-4 py-3">
+    <div className="min-h-screen flex flex-col">
+      {/* ==========================================
+          FIXED HEADER
+          ========================================== */}
+      <header className="fixed top-0 left-0 right-0 z-header px-4 py-3 safe-area-top">
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
+          
           {/* Creator/Buyer Toggle */}
-          <div className="glass-toggle flex items-center p-1">
+          <div className="glass-toggle flex items-center p-1 gap-0.5">
             <button
               onClick={() => handleModeToggle('creator')}
-              className={`px-3 py-1.5 text-[10px] font-semibold tracking-wider uppercase transition-all rounded-full ${
+              className={`px-3 py-1.5 text-[10px] font-semibold tracking-widest uppercase transition-all duration-200 rounded-full ${
                 isCreatorMode
-                  ? 'bg-emerald-500 text-white shadow-lg'
+                  ? 'bg-emerald-500 text-slate-900 shadow-lg glow-emerald-subtle'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -114,9 +165,9 @@ export default function AppShell() {
             </button>
             <button
               onClick={() => handleModeToggle('buyer')}
-              className={`px-3 py-1.5 text-[10px] font-semibold tracking-wider uppercase transition-all rounded-full ${
+              className={`px-3 py-1.5 text-[10px] font-semibold tracking-widest uppercase transition-all duration-200 rounded-full ${
                 !isCreatorMode
-                  ? 'bg-cyan-500 text-white shadow-lg'
+                  ? 'bg-cyan-500 text-slate-900 shadow-lg glow-cyan-subtle'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -124,48 +175,64 @@ export default function AppShell() {
             </button>
           </div>
 
+          {/* Page Title - centered on mobile */}
+          <h1 className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold text-slate-300 tracking-wide uppercase hidden sm:block">
+            {getPageTitle()}
+          </h1>
+
           {/* Avatar */}
-          <button className="w-9 h-9 rounded-full bg-slate-700 border border-white/10 flex items-center justify-center hover:border-cyan-500/50 transition-all">
-            <Icons.User />
+          <button className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center text-slate-900 font-bold text-xs hover:scale-105 transition-transform shadow-lg">
+            KS
           </button>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="pt-20 pb-28 px-4 min-h-screen">
+      {/* ==========================================
+          MAIN CONTENT AREA
+          ========================================== */}
+      <main className="flex-1 pt-16 pb-24 px-4 min-h-screen">
         <div className="max-w-screen-xl mx-auto">
+          {/* Mobile Page Title */}
+          <h1 className="text-lg font-bold text-white tracking-tight mb-4 sm:hidden">
+            {getPageTitle()}
+          </h1>
+          
+          {/* Route Content */}
           <Outlet />
         </div>
       </main>
 
-      {/* Bottom Nav Pill */}
-      <nav className="fixed bottom-5 left-4 right-4 z-50 flex justify-center">
-        <div className="glass-nav px-2 py-2 flex items-center gap-1 overflow-x-auto scrollbar-hide max-w-full">
+      {/* ==========================================
+          BOTTOM NAVIGATION PILL
+          ========================================== */}
+      <nav className="fixed bottom-4 left-4 right-4 z-nav flex justify-center pb-safe">
+        <div className="glass-nav px-3 py-2 flex items-center gap-1 overflow-x-auto scrollbar-hide max-w-full">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = location.pathname === item.path || 
-                           (item.path === '/' && location.pathname === '/deals');
+            const isActive = isActivePath(item.path);
             
             return (
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={`flex flex-col items-center justify-center px-4 py-2 min-w-[64px] rounded-full transition-all ${
+                className={`flex flex-col items-center justify-center px-4 py-2 min-w-[60px] rounded-full transition-all duration-200 ${
                   isActive
                     ? 'text-cyan-400'
-                    : 'text-slate-500 hover:text-slate-300'
+                    : 'text-slate-500 hover:text-slate-300 active:scale-95'
                 }`}
               >
-                <span className={isActive ? 'drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}>
+                <span className={`transition-all duration-200 ${
+                  isActive ? 'drop-shadow-[0_0_8px_rgba(34,211,238,0.6)] scale-110' : ''
+                }`}>
                   <Icon />
                 </span>
-                <span className={`text-[10px] font-semibold tracking-wider uppercase whitespace-nowrap mt-1 ${
+                <span className={`text-[9px] font-semibold tracking-wider uppercase mt-1 transition-colors ${
                   isActive ? 'text-cyan-400' : ''
                 }`}>
                   {item.label}
                 </span>
                 {isActive && (
-                  <div className="w-1 h-1 rounded-full bg-cyan-400 mt-1 shadow-[0_0_6px_rgba(34,211,238,0.8)]" />
+                  <div className="w-1 h-1 rounded-full bg-cyan-400 mt-0.5 shadow-[0_0_6px_rgba(34,211,238,0.8)]" />
                 )}
               </NavLink>
             );
