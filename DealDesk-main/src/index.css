@@ -1,491 +1,511 @@
-/* ============================================
-   DEALDESK - Global Styles
-   Blade Runner 2049 Command Center Aesthetic
-   ============================================ */
+/* 
+ * DealDesk - Global Styles
+ * Command Center Aesthetic v1.0
+ * Inspired by Linear, Raycast, Nike App
+ */
 
-/* Google Fonts Import */
+/* ========================================
+   GOOGLE FONTS
+   ======================================== */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
+/* ========================================
+   TAILWIND DIRECTIVES
+   ======================================== */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================
-   CSS Custom Properties (Design Tokens)
-   ============================================ */
+/* ========================================
+   CSS CUSTOM PROPERTIES
+   ======================================== */
 :root {
   /* Background Colors */
-  --bg-deepest: #030712;
-  --bg-deep: #0a0f1a;
-  --bg-surface: #111827;
-  --bg-elevated: #1f2937;
+  --bg-base: #030712;
+  --bg-elevated: #0a0f1a;
+  --bg-surface: #0f172a;
   
   /* Accent Colors */
-  --cyan-glow: #22d3ee;
-  --cyan-bright: #06b6d4;
-  --cyan-dim: #0891b2;
-  --emerald-glow: #10b981;
-  --emerald-bright: #059669;
-  --emerald-dim: #047857;
+  --accent-cyan: #22d3ee;
+  --accent-cyan-dim: #06b6d4;
+  --accent-emerald: #10b981;
+  --accent-emerald-dim: #059669;
+  
+  /* Status Colors */
+  --status-danger: #ef4444;
+  --status-warning: #f59e0b;
+  --status-success: #10b981;
   
   /* Text Colors */
-  --text-primary: #f9fafb;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  --text-primary: #f8fafc;
+  --text-secondary: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
   
-  /* Glass Properties */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-hover: rgba(255, 255, 255, 0.06);
+  /* Glass Effects */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-heavy: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-light: rgba(255, 255, 255, 0.15);
   
-  /* Glow Properties */
+  /* Glow Effects */
   --glow-cyan: 0 0 20px rgba(34, 211, 238, 0.3);
-  --glow-cyan-intense: 0 0 30px rgba(34, 211, 238, 0.5);
+  --glow-cyan-strong: 0 0 30px rgba(34, 211, 238, 0.5);
   --glow-emerald: 0 0 20px rgba(16, 185, 129, 0.3);
-  --glow-emerald-intense: 0 0 30px rgba(16, 185, 129, 0.5);
+  --glow-emerald-strong: 0 0 30px rgba(16, 185, 129, 0.5);
+  
+  /* Typography */
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  
+  /* Spacing */
+  --header-height: 56px;
+  --bottom-nav-height: 64px;
+  --content-padding-top: 72px;
+  --content-padding-bottom: 88px;
 }
 
-/* ============================================
-   Base Styles
-   ============================================ */
+/* ========================================
+   BASE STYLES
+   ======================================== */
 @layer base {
   html {
-    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
+  
   body {
-    @apply text-gray-100;
-    background: linear-gradient(
-      180deg,
-      var(--bg-deepest) 0%,
-      var(--bg-deep) 50%,
-      var(--bg-surface) 100%
-    );
+    background: linear-gradient(180deg, var(--bg-base) 0%, var(--bg-elevated) 50%, var(--bg-surface) 100%);
     background-attachment: fixed;
+    color: var(--text-primary);
+    min-height: 100vh;
+    font-family: var(--font-body);
+  }
+  
+  /* Subtle grid texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  #root {
+    position: relative;
+    z-index: 1;
     min-height: 100vh;
   }
-
-  /* Monospace for financial figures */
-  .font-mono {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  
+  /* Typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Monospace for financial/code content */
+  .font-mono,
+  code,
+  pre,
+  [data-mono] {
+    font-family: var(--font-mono);
   }
 }
 
-/* ============================================
-   Component Classes
-   ============================================ */
+/* ========================================
+   COMPONENT UTILITIES
+   ======================================== */
 @layer components {
-  /* ------------------------------------
-     Glassmorphism Cards
-     ------------------------------------ */
+  /* Glass Card - Primary card style */
   .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    transition: all 0.2s ease;
+    border-radius: 16px;
   }
-
-  .glass-card:hover {
-    background: var(--glass-hover);
-    border-color: rgba(255, 255, 255, 0.12);
-  }
-
-  .glass-card-solid {
-    background: rgba(17, 24, 39, 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-  }
-
-  /* ------------------------------------
-     Glassmorphism Navigation
-     ------------------------------------ */
-  .glass-nav {
-    background: rgba(3, 7, 18, 0.85);
+  
+  .glass-card-elevated {
+    background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
+    border: 1px solid var(--glass-border-light);
+    border-radius: 20px;
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -2px rgba(0, 0, 0, 0.2);
   }
-
-  .glass-nav-item {
-    @apply px-4 py-2 text-sm font-medium transition-all duration-200;
-    color: var(--text-secondary);
-  }
-
-  .glass-nav-item:hover {
-    color: var(--text-primary);
-  }
-
-  .glass-nav-item.active {
-    color: var(--cyan-glow);
-    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
-  }
-
-  /* ------------------------------------
-     Bottom Navigation Pill
-     ------------------------------------ */
-  .bottom-nav-pill {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 50;
-    background: rgba(3, 7, 18, 0.9);
+  
+  /* Glass Nav - Navigation elements */
+  .glass-nav {
+    background: var(--glass-bg-heavy);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--glass-border);
-    border-radius: 28px;
-    padding: 8px 12px;
-    box-shadow: 
-      0 4px 24px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border-radius: 9999px;
   }
-
-  .bottom-nav-item {
-    @apply flex flex-col items-center justify-center px-4 py-2 rounded-xl transition-all duration-200;
-    color: var(--text-muted);
-    min-width: 60px;
-  }
-
-  .bottom-nav-item:hover {
-    color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.03);
-  }
-
-  .bottom-nav-item.active {
-    color: var(--cyan-glow);
-    background: rgba(34, 211, 238, 0.1);
-  }
-
-  .bottom-nav-item.active svg {
-    filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.6));
-  }
-
-  /* ------------------------------------
-     Creator/Buyer Toggle
-     ------------------------------------ */
-  .mode-toggle {
-    @apply flex items-center gap-1 p-1 rounded-full;
-    background: rgba(255, 255, 255, 0.05);
+  
+  /* Glass Toggle - Mode switch pill */
+  .glass-toggle {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
+    border-radius: 9999px;
   }
-
-  .mode-toggle-option {
-    @apply px-4 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all duration-200;
+  
+  /* Glass Header - Fixed top bar */
+  .glass-header {
+    background: rgba(3, 7, 18, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  
+  /* Glass Input - Form fields */
+  .glass-input {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+  }
+  
+  .glass-input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+  }
+  
+  .glass-input::placeholder {
+    color: var(--text-dim);
+  }
+  
+  /* Status Pills */
+  .status-pill {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.625rem;
+    border-radius: 6px;
+  }
+  
+  .status-pill-new {
+    background: rgba(34, 211, 238, 0.15);
+    color: var(--accent-cyan);
+  }
+  
+  .status-pill-pending {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--status-warning);
+  }
+  
+  .status-pill-success {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--status-success);
+  }
+  
+  .status-pill-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--status-danger);
+  }
+  
+  .status-pill-muted {
+    background: rgba(148, 163, 184, 0.1);
     color: var(--text-muted);
   }
-
-  .mode-toggle-option:hover {
-    color: var(--text-secondary);
-  }
-
-  .mode-toggle-option.active {
-    background: var(--cyan-glow);
-    color: var(--bg-deepest);
-    box-shadow: var(--glow-cyan);
-  }
-
-  /* ------------------------------------
-     Status Pills
-     ------------------------------------ */
-  .status-pill {
-    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.05em;
-  }
-
-  .status-new {
-    @apply bg-cyan-500/20 text-cyan-400;
-    box-shadow: inset 0 0 12px rgba(34, 211, 238, 0.2);
-  }
-
-  .status-pending {
-    @apply bg-amber-500/20 text-amber-400;
-    box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.2);
-  }
-
-  .status-paid {
-    @apply bg-emerald-500/20 text-emerald-400;
-    box-shadow: inset 0 0 12px rgba(16, 185, 129, 0.2);
-  }
-
-  .status-delivered {
-    @apply bg-violet-500/20 text-violet-400;
-    box-shadow: inset 0 0 12px rgba(139, 92, 246, 0.2);
-  }
-
-  .status-closed {
-    @apply bg-gray-500/20 text-gray-400;
-  }
-
-  .status-declined {
-    @apply bg-red-500/20 text-red-400;
-    box-shadow: inset 0 0 12px rgba(239, 68, 68, 0.2);
-  }
-
-  /* ------------------------------------
-     Deal Type Badges
-     ------------------------------------ */
-  .deal-type-badge {
-    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-medium uppercase tracking-wider;
-  }
-
-  .deal-type-license {
-    @apply bg-blue-500/10 text-blue-400 border border-blue-500/20;
-  }
-
-  .deal-type-stems {
-    @apply bg-purple-500/10 text-purple-400 border border-purple-500/20;
-  }
-
-  .deal-type-custom {
-    @apply bg-orange-500/10 text-orange-400 border border-orange-500/20;
-  }
-
-  .deal-type-commission {
-    @apply bg-pink-500/10 text-pink-400 border border-pink-500/20;
-  }
-
-  /* ------------------------------------
-     Buttons
-     ------------------------------------ */
+  
+  /* Buttons */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold transition-all duration-200;
-    background: linear-gradient(135deg, var(--emerald-glow) 0%, var(--emerald-bright) 100%);
+    background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-emerald-dim) 100%);
     color: white;
+    font-family: var(--font-body);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-1px);
     box-shadow: var(--glow-emerald);
   }
-
-  .btn-primary:hover {
-    box-shadow: var(--glow-emerald-intense);
-    transform: translateY(-1px);
-  }
-
+  
   .btn-primary:active {
     transform: translateY(0);
   }
-
+  
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold transition-all duration-200;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
     color: var(--text-primary);
+    font-family: var(--font-body);
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
-
+  
   .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--glass-border-light);
   }
-
+  
   .btn-ghost {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200;
-    color: var(--text-secondary);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
-
+  
   .btn-ghost:hover {
+    background: var(--glass-bg);
     color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .btn-cyan {
-    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold transition-all duration-200;
-    background: linear-gradient(135deg, var(--cyan-glow) 0%, var(--cyan-bright) 100%);
-    color: var(--bg-deepest);
-    box-shadow: var(--glow-cyan);
-  }
-
-  .btn-cyan:hover {
-    box-shadow: var(--glow-cyan-intense);
-    transform: translateY(-1px);
-  }
-
-  /* ------------------------------------
-     Form Inputs
-     ------------------------------------ */
-  .input-glass {
-    @apply w-full px-4 py-3 rounded-lg text-gray-100 placeholder-gray-500 transition-all duration-200;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--glass-border);
-  }
-
-  .input-glass:focus {
-    outline: none;
-    border-color: var(--cyan-dim);
-    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
-  }
-
-  .input-glass:hover:not(:focus) {
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  /* ------------------------------------
-     Typography Utilities
-     ------------------------------------ */
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, var(--cyan-glow) 0%, #67e8f9 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .text-gradient-emerald {
-    background: linear-gradient(135deg, var(--emerald-glow) 0%, #6ee7b7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .label-caps {
-    @apply text-xs font-semibold uppercase tracking-wider;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-  }
-
-  /* ------------------------------------
-     Financial Figures (Monospace)
-     ------------------------------------ */
-  .price-display {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-  }
-
-  .deal-id {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
   }
 }
 
-/* ============================================
-   Utility Classes
-   ============================================ */
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
 @layer utilities {
   /* Glow Effects */
   .glow-cyan {
     box-shadow: var(--glow-cyan);
   }
-
-  .glow-cyan-intense {
-    box-shadow: var(--glow-cyan-intense);
+  
+  .glow-cyan-strong {
+    box-shadow: var(--glow-cyan-strong);
   }
-
+  
   .glow-emerald {
     box-shadow: var(--glow-emerald);
   }
-
-  .glow-emerald-intense {
-    box-shadow: var(--glow-emerald-intense);
+  
+  .glow-emerald-strong {
+    box-shadow: var(--glow-emerald-strong);
   }
-
+  
+  /* Text Glow */
   .text-glow-cyan {
     text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
   }
-
+  
   .text-glow-emerald {
     text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
   }
-
-  /* Background Utilities */
-  .bg-grid-pattern {
-    background-image: 
-      linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
+  
+  /* Typography Utilities */
+  .font-display {
+    font-family: var(--font-display);
   }
-
-  .bg-scanlines {
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 0, 0, 0.1) 2px,
-      rgba(0, 0, 0, 0.1) 4px
-    );
-    pointer-events: none;
+  
+  .font-body {
+    font-family: var(--font-body);
   }
-
-  /* Animation Utilities */
-  .animate-glow-pulse {
-    animation: glow-pulse 2s ease-in-out infinite;
+  
+  .font-mono {
+    font-family: var(--font-mono);
   }
-
-  @keyframes glow-pulse {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
-    }
+  
+  /* Label styling - ALL CAPS with tracking */
+  .label-caps {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
   }
-
-  /* Scrollbar Styling */
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  
+  /* Deal ID / Code styling */
+  .deal-code {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
   }
-
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  
+  /* Price styling */
+  .price-display {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
-
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
+  
+  /* Content area padding for fixed header/nav */
+  .content-padded {
+    padding-top: var(--content-padding-top);
+    padding-bottom: var(--content-padding-bottom);
   }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+  
+  /* Hover lift effect */
+  .hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
   }
-
-  /* Safe Area for Bottom Nav */
-  .pb-safe-bottom {
-    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  
+  /* Active scale effect */
+  .active-scale:active {
+    transform: scale(0.98);
   }
-
+  
   /* Hide scrollbar but keep functionality */
-  .no-scrollbar {
+  .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
-  .no-scrollbar::-webkit-scrollbar {
+  
+  .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  
+  /* Subtle scrollbar */
+  .scrollbar-subtle::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .scrollbar-subtle::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-subtle::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 4px;
+  }
+  
+  .scrollbar-subtle::-webkit-scrollbar-thumb:hover {
+    background: var(--glass-border-light);
+  }
+  
+  /* Focus ring utility */
+  .focus-ring-cyan:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.4);
+  }
+  
+  .focus-ring-emerald:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
+  }
+  
+  /* Gradient text */
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, var(--accent-cyan) 0%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-emerald {
+    background: linear-gradient(135deg, var(--accent-emerald) 0%, #6ee7b7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
-/* ============================================
-   Responsive Adjustments
-   ============================================ */
-@media (min-width: 768px) {
-  .bottom-nav-pill {
-    bottom: 24px;
-    padding: 10px 16px;
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-
-  .bottom-nav-item {
-    @apply px-5 py-2.5;
-    min-width: 72px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Larger screens - can optionally hide bottom nav */
-@media (min-width: 1024px) {
-  .bottom-nav-pill {
-    /* Keep bottom nav on all screens for consistency */
-    /* Or uncomment below to hide on desktop: */
-    /* display: none; */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Staggered animation delays */
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.2s; }
+.delay-5 { animation-delay: 0.25s; }
+
+/* ========================================
+   SCROLLBAR GLOBAL
+   ======================================== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--glass-border) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--glass-border-light);
 }
