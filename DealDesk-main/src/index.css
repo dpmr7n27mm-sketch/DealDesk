@@ -6,7 +6,6 @@
 
 /* ========================================
    DEALDESK - BLADE RUNNER 2049 + LIQUID GLASS
-   Dark solid panels + shiny liquid overlays
    ======================================== */
 
 :root {
@@ -37,8 +36,19 @@ body {
 .font-mono { font-family: 'JetBrains Mono', monospace; }
 
 /* ========================================
-   SOLID DARK PANELS - Blade Runner 2049
-   For deal cards, containers that need weight
+   PURPLE-RED GRADIENT
+   ======================================== */
+
+.gradient-accent {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+.gradient-accent-subtle {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(236, 72, 153, 0.3) 100%);
+}
+
+/* ========================================
+   SOLID DARK PANELS
    ======================================== */
 
 .solid-card {
@@ -54,15 +64,14 @@ body {
 }
 
 .solid-card:hover {
-  border-color: rgba(34, 211, 238, 0.2);
-  border-top-color: rgba(34, 211, 238, 0.3);
+  border-color: rgba(139, 92, 246, 0.25);
+  border-top-color: rgba(139, 92, 246, 0.35);
   box-shadow: 
     0 4px 24px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(34, 211, 238, 0.08),
+    0 0 20px rgba(139, 92, 246, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Solid panel - larger containers */
 .solid-panel {
   background: linear-gradient(155deg, #0d1117 0%, #080b0f 60%, #0a0e14 100%);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -74,8 +83,7 @@ body {
 }
 
 /* ========================================
-   LIQUID GLASS - Maximum shine
-   For nav, toggles, stats, inputs
+   LIQUID GLASS
    ======================================== */
 
 .glass-card {
@@ -109,7 +117,6 @@ body {
     inset 0 -2px 4px rgba(0,0,0,0.25);
 }
 
-/* Liquid pill - stats, tags */
 .glass-pill {
   background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.12) 100%);
   backdrop-filter: blur(6px);
@@ -138,7 +145,6 @@ body {
     inset 0 -2px 3px rgba(0,0,0,0.2);
 }
 
-/* Bottom nav - premium liquid */
 .glass-nav {
   background: linear-gradient(140deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0.14) 100%);
   backdrop-filter: blur(12px);
@@ -155,7 +161,6 @@ body {
     inset 0 -2px 6px rgba(0,0,0,0.25);
 }
 
-/* Toggle */
 .glass-toggle {
   background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.1) 100%);
   backdrop-filter: blur(6px);
@@ -169,7 +174,6 @@ body {
     inset 0 2px 3px rgba(255,255,255,0.2);
 }
 
-/* Input */
 .glass-input {
   background: linear-gradient(130deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 100%);
   backdrop-filter: blur(4px);
@@ -183,27 +187,43 @@ body {
 }
 
 .glass-input:focus {
-  background: linear-gradient(130deg, rgba(34,211,238,0.15) 0%, rgba(255,255,255,0.04) 100%);
-  border-color: rgba(34,211,238,0.5);
-  border-top-color: rgba(34,211,238,0.7);
+  background: linear-gradient(130deg, rgba(139,92,246,0.15) 0%, rgba(255,255,255,0.04) 100%);
+  border-color: rgba(139,92,246,0.5);
+  border-top-color: rgba(139,92,246,0.7);
   outline: none;
   box-shadow: 
-    0 0 0 3px rgba(34,211,238,0.15),
-    0 0 30px rgba(34,211,238,0.25),
+    0 0 0 3px rgba(139,92,246,0.15),
+    0 0 30px rgba(139,92,246,0.25),
     inset 0 2px 3px rgba(255,255,255,0.2);
 }
 
 .glass-input::placeholder { color: var(--text-faint); }
 
+/* Glass avatar */
+.glass-avatar {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  border: 2px solid rgba(255,255,255,0.3);
+  box-shadow: 
+    0 4px 16px rgba(139, 92, 246, 0.4),
+    inset 0 2px 4px rgba(255,255,255,0.3),
+    inset 0 -2px 4px rgba(0,0,0,0.2);
+}
+
 /* ========================================
    GLOW EFFECTS
    ======================================== */
 
-.glow-cyan { 
+.glow-accent { 
   box-shadow: 
-    0 0 24px rgba(34,211,238,0.6), 
-    0 0 48px rgba(34,211,238,0.35), 
+    0 0 24px rgba(139,92,246,0.6), 
+    0 0 48px rgba(236,72,153,0.35), 
     inset 0 1px 2px rgba(255,255,255,0.2); 
+}
+
+.glow-accent-subtle { 
+  box-shadow: 
+    0 0 20px rgba(139,92,246,0.4), 
+    inset 0 1px 2px rgba(255,255,255,0.15); 
 }
 
 .glow-emerald { 
@@ -213,20 +233,162 @@ body {
     inset 0 1px 2px rgba(255,255,255,0.2); 
 }
 
-.glow-cyan-subtle { 
-  box-shadow: 
-    0 0 20px rgba(34,211,238,0.4), 
-    inset 0 1px 2px rgba(255,255,255,0.15); 
-}
-
 .glow-emerald-subtle { 
   box-shadow: 
     0 0 20px rgba(16,185,129,0.4), 
     inset 0 1px 2px rgba(255,255,255,0.15); 
 }
 
-.text-glow-cyan { text-shadow: 0 0 20px rgba(34,211,238,0.9); }
+.text-glow-accent { text-shadow: 0 0 20px rgba(139,92,246,0.9); }
 .text-glow-emerald { text-shadow: 0 0 20px rgba(16,185,129,0.9); }
+
+/* ========================================
+   STATUS PILLS - With Glassmorphism
+   ======================================== */
+
+.status-new { 
+  background: linear-gradient(135deg, rgba(34,211,238,0.25) 0%, rgba(34,211,238,0.1) 100%);
+  color: #22d3ee; 
+  border: 1px solid rgba(34,211,238,0.4);
+  border-top-color: rgba(34,211,238,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-review { 
+  background: linear-gradient(135deg, rgba(251,191,36,0.25) 0%, rgba(251,191,36,0.1) 100%);
+  color: #fbbf24; 
+  border: 1px solid rgba(251,191,36,0.4);
+  border-top-color: rgba(251,191,36,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-info { 
+  background: linear-gradient(135deg, rgba(251,146,60,0.25) 0%, rgba(251,146,60,0.1) 100%);
+  color: #fb923c; 
+  border: 1px solid rgba(251,146,60,0.4);
+  border-top-color: rgba(251,146,60,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-offer { 
+  background: linear-gradient(135deg, rgba(168,85,247,0.25) 0%, rgba(168,85,247,0.1) 100%);
+  color: #a855f7; 
+  border: 1px solid rgba(168,85,247,0.4);
+  border-top-color: rgba(168,85,247,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-waiting { 
+  background: linear-gradient(135deg, rgba(250,204,21,0.25) 0%, rgba(250,204,21,0.1) 100%);
+  color: #facc15; 
+  border: 1px solid rgba(250,204,21,0.4);
+  border-top-color: rgba(250,204,21,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-paid { 
+  background: linear-gradient(135deg, rgba(16,185,129,0.25) 0%, rgba(16,185,129,0.1) 100%);
+  color: #10b981; 
+  border: 1px solid rgba(16,185,129,0.4);
+  border-top-color: rgba(16,185,129,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-delivered { 
+  background: linear-gradient(135deg, rgba(20,184,166,0.25) 0%, rgba(20,184,166,0.1) 100%);
+  color: #14b8a6; 
+  border: 1px solid rgba(20,184,166,0.4);
+  border-top-color: rgba(20,184,166,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-closed { 
+  background: linear-gradient(135deg, rgba(148,163,184,0.25) 0%, rgba(148,163,184,0.1) 100%);
+  color: #94a3b8; 
+  border: 1px solid rgba(148,163,184,0.4);
+  border-top-color: rgba(148,163,184,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-declined { 
+  background: linear-gradient(135deg, rgba(239,68,68,0.25) 0%, rgba(239,68,68,0.1) 100%);
+  color: #ef4444; 
+  border: 1px solid rgba(239,68,68,0.4);
+  border-top-color: rgba(239,68,68,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+.status-blocked { 
+  background: linear-gradient(135deg, rgba(185,28,28,0.25) 0%, rgba(185,28,28,0.1) 100%);
+  color: #dc2626; 
+  border: 1px solid rgba(185,28,28,0.4);
+  border-top-color: rgba(185,28,28,0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+}
+
+/* ========================================
+   DEAL TYPE BADGES - With Glassmorphism
+   ======================================== */
+
+.type-license { 
+  background: linear-gradient(135deg, rgba(99,102,241,0.35) 0%, rgba(99,102,241,0.15) 100%);
+  color: #c7d2fe; 
+  border: 1px solid rgba(99,102,241,0.5);
+  border-top-color: rgba(99,102,241,0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.type-stems { 
+  background: linear-gradient(135deg, rgba(20,184,166,0.35) 0%, rgba(20,184,166,0.15) 100%);
+  color: #99f6e4; 
+  border: 1px solid rgba(20,184,166,0.5);
+  border-top-color: rgba(20,184,166,0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.type-commission { 
+  background: linear-gradient(135deg, rgba(168,85,247,0.35) 0%, rgba(168,85,247,0.15) 100%);
+  color: #e9d5ff; 
+  border: 1px solid rgba(168,85,247,0.5);
+  border-top-color: rgba(168,85,247,0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.type-custom { 
+  background: linear-gradient(135deg, rgba(139,92,246,0.35) 0%, rgba(139,92,246,0.15) 100%);
+  color: #ddd6fe; 
+  border: 1px solid rgba(139,92,246,0.5);
+  border-top-color: rgba(139,92,246,0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
+}
 
 /* ========================================
    SCROLLBAR
@@ -250,30 +412,6 @@ body {
 .animate-fade-in { animation: fade-in 0.3s ease-out; }
 .animate-slide-up { animation: slide-up 0.4s ease-out; }
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
-
-/* ========================================
-   STATUS PILLS
-   ======================================== */
-
-.status-new { background: rgba(34,211,238,0.2); color: #22d3ee; border: 1px solid rgba(34,211,238,0.4); }
-.status-review { background: rgba(251,191,36,0.2); color: #fbbf24; border: 1px solid rgba(251,191,36,0.4); }
-.status-info { background: rgba(251,146,60,0.2); color: #fb923c; border: 1px solid rgba(251,146,60,0.4); }
-.status-offer { background: rgba(168,85,247,0.2); color: #a855f7; border: 1px solid rgba(168,85,247,0.4); }
-.status-waiting { background: rgba(250,204,21,0.2); color: #facc15; border: 1px solid rgba(250,204,21,0.4); }
-.status-paid { background: rgba(16,185,129,0.2); color: #10b981; border: 1px solid rgba(16,185,129,0.4); }
-.status-delivered { background: rgba(20,184,166,0.2); color: #14b8a6; border: 1px solid rgba(20,184,166,0.4); }
-.status-closed { background: rgba(148,163,184,0.2); color: #94a3b8; border: 1px solid rgba(148,163,184,0.4); }
-.status-declined { background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid rgba(239,68,68,0.4); }
-.status-blocked { background: rgba(185,28,28,0.2); color: #dc2626; border: 1px solid rgba(185,28,28,0.4); }
-
-/* ========================================
-   DEAL TYPE COLORS
-   ======================================== */
-
-.type-license { background: rgba(99,102,241,0.2); color: #a5b4fc; }
-.type-stems { background: rgba(34,211,238,0.2); color: #67e8f9; }
-.type-commission { background: rgba(232,121,249,0.2); color: #f0abfc; }
-.type-custom { background: rgba(139,92,246,0.2); color: #c4b5fd; }
 
 /* ========================================
    UTILITY
