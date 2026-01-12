@@ -101,12 +101,11 @@ const statusConfig = {
   'Blocked': 'status-blocked',
 };
 
-// Minimal type config - just letters
 const typeConfig = {
-  'License': 'L',
-  'Stems': 'S',
-  'Commission': 'C',
-  'Custom Version': 'V',
+  'License': 'type-license',
+  'Stems': 'type-stems',
+  'Commission': 'type-commission',
+  'Custom Version': 'type-custom',
 };
 
 const filters = ['All', 'New', 'Waiting on Me', 'Waiting on Buyer', 'Paid', 'Delivered'];
@@ -151,7 +150,7 @@ export default function DealsListDashboard() {
     <div className="space-y-6 animate-fade-in">
       
       {/* ==========================================
-          STATS ROW - Minimal Monochrome
+          STATS ROW
           ========================================== */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="glass-pill px-5 py-4">
@@ -203,16 +202,16 @@ export default function DealsListDashboard() {
           </div>
         </div>
 
-        {/* Filter Pills */}
+        {/* Filter Pills - Glassmorphism */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-1 px-1">
           {filters.map(filter => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 text-xs font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-200 rounded-full ${
+              className={`px-4 py-2 text-xs font-semibold tracking-wide uppercase whitespace-nowrap transition-all duration-200 rounded-full ${
                 activeFilter === filter
-                  ? 'bg-white text-slate-900'
-                  : 'text-slate-500 hover:text-white border border-slate-700 hover:border-slate-600'
+                  ? 'gradient-accent text-white shadow-lg glow-accent-subtle'
+                  : 'glass-pill text-slate-400 hover:text-white'
               }`}
             >
               {filter}
@@ -230,19 +229,17 @@ export default function DealsListDashboard() {
             >
               <div className="flex items-center justify-between gap-4">
                 
-                {/* Left: Type + Deal Info */}
-                <div className="flex items-center gap-4 min-w-0 flex-1">
-                  {/* Type Letter */}
-                  <div className="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-mono font-semibold text-slate-400">
-                      {typeConfig[deal.type] || '?'}
-                    </span>
-                  </div>
+                {/* Left: Type Badge + Deal Info */}
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  {/* Type Badge - Color coded with name */}
+                  <span className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md flex-shrink-0 ${typeConfig[deal.type] || 'type-license'}`}>
+                    {deal.type === 'Custom Version' ? 'Custom' : deal.type}
+                  </span>
                   
                   {/* Deal Details */}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-white font-medium truncate group-hover:text-cyan-400 transition-colors">
+                      <span className="text-white font-medium truncate group-hover:text-purple-300 transition-colors">
                         {deal.track}
                       </span>
                       <span className={`px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide rounded-full ${statusConfig[deal.status] || 'status-closed'}`}>
