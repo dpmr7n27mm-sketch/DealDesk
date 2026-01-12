@@ -5,399 +5,178 @@
 @tailwind utilities;
 
 /* ========================================
-   DEALDESK DESIGN SYSTEM
-   Liquid Glass Aesthetic
+   DEALDESK - LIQUID GLASS
+   Clear like water, bright wet reflections
    ======================================== */
 
 :root {
-  /* Background */
   --bg-base: #030712;
   --bg-elevated: #0f172a;
-  
-  /* Accents */
   --accent-primary: #22d3ee;
   --accent-secondary: #10b981;
-  
-  /* Text */
   --text-primary: #f8fafc;
   --text-muted: #94a3b8;
   --text-faint: #64748b;
 }
 
-/* ========================================
-   BASE STYLES
-   ======================================== */
-
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(145deg, #030712 0%, #0f172a 50%, #0c1222 100%);
+  background: linear-gradient(160deg, #020617 0%, #0f172a 40%, #0c4a6e 100%);
   background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
+
+/* Typography */
+.font-display { font-family: 'Outfit', sans-serif; font-weight: 700; }
+.font-body { font-family: 'Outfit', sans-serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
 
 /* ========================================
-   TYPOGRAPHY
+   LIQUID GLASS - Minimal blur, wet shine
    ======================================== */
 
-.font-display {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-}
-
-.font-body {
-  font-family: 'Outfit', sans-serif;
-}
-
-.font-mono {
-  font-family: 'JetBrains Mono', monospace;
-}
-
-/* ========================================
-   LIQUID GLASS COMPONENTS
-   True frosted glass with visible transparency
-   ======================================== */
-
-/* Standard glass card */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(125deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.03) 40%, rgba(255,255,255,0.08) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.4);
+  border-left: 1px solid rgba(255,255,255,0.3);
   border-radius: 1rem;
-  box-shadow: 
-    0 4px 24px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.15);
 }
 
-/* Stronger glass card - more visible */
 .glass-card-strong {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(130deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.04) 35%, rgba(255,255,255,0.1) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255,255,255,0.5);
+  border-left: 1px solid rgba(255,255,255,0.35);
   border-radius: 1rem;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 1px rgba(255,255,255,0.4), inset 0 2px 3px rgba(255,255,255,0.25), inset 0 -2px 3px rgba(0,0,0,0.2);
 }
 
-/* Glass pill - for stats, filters, tags */
 .glass-pill {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.1) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.45);
+  border-left: 1px solid rgba(255,255,255,0.3);
   border-radius: 9999px;
-  box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 2px 2px rgba(255,255,255,0.2), inset 0 -1px 2px rgba(0,0,0,0.15);
 }
 
-/* Strong glass pill - more prominent */
 .glass-pill-strong {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.12) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255,255,255,0.55);
+  border-left: 1px solid rgba(255,255,255,0.35);
   border-radius: 9999px;
-  box-shadow: 
-    0 4px 20px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.35), inset 0 2px 3px rgba(255,255,255,0.25), inset 0 -2px 2px rgba(0,0,0,0.15);
 }
 
-/* Bottom navigation - most prominent glass */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(140deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0.12) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-top: 1px solid rgba(255,255,255,0.5);
+  border-left: 1px solid rgba(255,255,255,0.35);
   border-radius: 9999px;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.45), 0 0 1px rgba(255,255,255,0.5), inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.2);
 }
 
-/* Toggle pill */
 .glass-toggle {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.08) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.4);
+  border-left: 1px solid rgba(255,255,255,0.28);
   border-radius: 9999px;
-  box-shadow: 
-    0 2px 12px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.18);
 }
 
-/* Input fields */
 .glass-input {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(130deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.2);
   border-radius: 9999px;
   color: var(--text-primary);
   transition: all 0.2s ease;
 }
 
 .glass-input:focus {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(34, 211, 238, 0.4);
+  background: linear-gradient(130deg, rgba(34,211,238,0.12) 0%, rgba(255,255,255,0.03) 100%);
+  border-color: rgba(34,211,238,0.4);
+  border-top-color: rgba(34,211,238,0.6);
   outline: none;
-  box-shadow: 
-    0 0 0 3px rgba(34, 211, 238, 0.1),
-    0 0 20px rgba(34, 211, 238, 0.1);
+  box-shadow: 0 0 0 3px rgba(34,211,238,0.12), 0 0 30px rgba(34,211,238,0.2), inset 0 1px 2px rgba(255,255,255,0.15);
 }
 
-.glass-input::placeholder {
-  color: var(--text-faint);
-}
+.glass-input::placeholder { color: var(--text-faint); }
 
-/* ========================================
-   ACCENT GLASS VARIANTS
-   ======================================== */
+/* Glow Effects */
+.glow-cyan { box-shadow: 0 0 24px rgba(34,211,238,0.55), 0 0 48px rgba(34,211,238,0.3), inset 0 1px 2px rgba(255,255,255,0.15); }
+.glow-emerald { box-shadow: 0 0 24px rgba(16,185,129,0.55), 0 0 48px rgba(16,185,129,0.3), inset 0 1px 2px rgba(255,255,255,0.15); }
+.glow-cyan-subtle { box-shadow: 0 0 18px rgba(34,211,238,0.35), inset 0 1px 1px rgba(255,255,255,0.12); }
+.glow-emerald-subtle { box-shadow: 0 0 18px rgba(16,185,129,0.35), inset 0 1px 1px rgba(255,255,255,0.12); }
+.text-glow-cyan { text-shadow: 0 0 16px rgba(34,211,238,0.8); }
+.text-glow-emerald { text-shadow: 0 0 16px rgba(16,185,129,0.8); }
 
-.glass-cyan {
-  background: rgba(34, 211, 238, 0.08);
-  border-color: rgba(34, 211, 238, 0.2);
-}
+/* Scrollbar */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-thin { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+.scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
 
-.glass-emerald {
-  background: rgba(16, 185, 129, 0.08);
-  border-color: rgba(16, 185, 129, 0.2);
-}
+/* Animations */
+@keyframes fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slide-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+.animate-slide-up { animation: slide-up 0.4s ease-out; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 
-.glass-amber {
-  background: rgba(251, 191, 36, 0.08);
-  border-color: rgba(251, 191, 36, 0.2);
-}
+/* Status Pills */
+.status-new { background: rgba(34,211,238,0.2); color: #22d3ee; border: 1px solid rgba(34,211,238,0.4); }
+.status-review { background: rgba(251,191,36,0.2); color: #fbbf24; border: 1px solid rgba(251,191,36,0.4); }
+.status-info { background: rgba(251,146,60,0.2); color: #fb923c; border: 1px solid rgba(251,146,60,0.4); }
+.status-offer { background: rgba(168,85,247,0.2); color: #a855f7; border: 1px solid rgba(168,85,247,0.4); }
+.status-waiting { background: rgba(250,204,21,0.2); color: #facc15; border: 1px solid rgba(250,204,21,0.4); }
+.status-paid { background: rgba(16,185,129,0.2); color: #10b981; border: 1px solid rgba(16,185,129,0.4); }
+.status-delivered { background: rgba(20,184,166,0.2); color: #14b8a6; border: 1px solid rgba(20,184,166,0.4); }
+.status-closed { background: rgba(148,163,184,0.2); color: #94a3b8; border: 1px solid rgba(148,163,184,0.4); }
+.status-declined { background: rgba(239,68,68,0.2); color: #ef4444; border: 1px solid rgba(239,68,68,0.4); }
+.status-blocked { background: rgba(185,28,28,0.2); color: #dc2626; border: 1px solid rgba(185,28,28,0.4); }
 
-/* ========================================
-   GLOW EFFECTS
-   ======================================== */
+/* Deal Types */
+.type-license { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+.type-stems { background: rgba(34,211,238,0.2); color: #67e8f9; }
+.type-commission { background: rgba(232,121,249,0.2); color: #f0abfc; }
+.type-custom { background: rgba(139,92,246,0.2); color: #c4b5fd; }
 
-.glow-cyan {
-  box-shadow: 
-    0 0 20px rgba(34, 211, 238, 0.4),
-    0 0 40px rgba(34, 211, 238, 0.2);
-}
-
-.glow-emerald {
-  box-shadow: 
-    0 0 20px rgba(16, 185, 129, 0.4),
-    0 0 40px rgba(16, 185, 129, 0.2);
-}
-
-.glow-cyan-subtle {
-  box-shadow: 0 0 15px rgba(34, 211, 238, 0.25);
-}
-
-.glow-emerald-subtle {
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
-}
-
-.text-glow-cyan {
-  text-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
-}
-
-.text-glow-emerald {
-  text-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
-}
-
-/* ========================================
-   SCROLLBAR STYLING
-   ======================================== */
-
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
-}
-
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* ========================================
-   ANIMATIONS
-   ======================================== */
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
-}
-
-.animate-slide-up {
-  animation: slide-up 0.4s ease-out;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-/* ========================================
-   STATUS PILLS
-   ======================================== */
-
-.status-new {
-  background: rgba(34, 211, 238, 0.15);
-  color: #22d3ee;
-  border: 1px solid rgba(34, 211, 238, 0.3);
-}
-
-.status-review {
-  background: rgba(251, 191, 36, 0.15);
-  color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.3);
-}
-
-.status-info {
-  background: rgba(251, 146, 60, 0.15);
-  color: #fb923c;
-  border: 1px solid rgba(251, 146, 60, 0.3);
-}
-
-.status-offer {
-  background: rgba(168, 85, 247, 0.15);
-  color: #a855f7;
-  border: 1px solid rgba(168, 85, 247, 0.3);
-}
-
-.status-waiting {
-  background: rgba(250, 204, 21, 0.15);
-  color: #facc15;
-  border: 1px solid rgba(250, 204, 21, 0.3);
-}
-
-.status-paid {
-  background: rgba(16, 185, 129, 0.15);
-  color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.status-delivered {
-  background: rgba(20, 184, 166, 0.15);
-  color: #14b8a6;
-  border: 1px solid rgba(20, 184, 166, 0.3);
-}
-
-.status-closed {
-  background: rgba(148, 163, 184, 0.15);
-  color: #94a3b8;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-}
-
-.status-declined {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.status-blocked {
-  background: rgba(185, 28, 28, 0.15);
-  color: #dc2626;
-  border: 1px solid rgba(185, 28, 28, 0.3);
-}
-
-/* ========================================
-   DEAL TYPE COLORS
-   ======================================== */
-
-.type-license {
-  background: rgba(99, 102, 241, 0.15);
-  color: #a5b4fc;
-}
-
-.type-stems {
-  background: rgba(34, 211, 238, 0.15);
-  color: #67e8f9;
-}
-
-.type-commission {
-  background: rgba(232, 121, 249, 0.15);
-  color: #f0abfc;
-}
-
-.type-custom {
-  background: rgba(139, 92, 246, 0.15);
-  color: #c4b5fd;
-}
-
-/* ========================================
-   UTILITY
-   ======================================== */
-
+/* Utility */
 .z-header { z-index: 40; }
 .z-nav { z-index: 50; }
 .z-modal { z-index: 60; }
 .z-toast { z-index: 70; }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .pb-safe {
-    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
-  }
+  .pb-safe { padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
 }
