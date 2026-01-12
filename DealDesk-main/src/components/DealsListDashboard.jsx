@@ -88,10 +88,6 @@ const sampleDeals = [
   }
 ];
 
-// ============================================
-// STATUS & TYPE CONFIGURATIONS
-// ============================================
-
 const statusConfig = {
   'New': 'status-new',
   'In Review': 'status-review',
@@ -123,7 +119,6 @@ export default function DealsListDashboard() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Filter deals based on search and filter
   const filteredDeals = sampleDeals.filter(deal => {
     const matchesSearch = searchQuery === '' || 
       deal.requester.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -140,7 +135,6 @@ export default function DealsListDashboard() {
     return matchesSearch && matchesFilter;
   });
 
-  // Calculate stats
   const stats = {
     active: sampleDeals.filter(d => !['Closed', 'Declined', 'Blocked', 'Expired'].includes(d.status)).length,
     needsAction: sampleDeals.filter(d => ['New', 'In Review', 'Needs Info'].includes(d.status)).length,
@@ -148,7 +142,6 @@ export default function DealsListDashboard() {
     thisMonth: sampleDeals.filter(d => d.status === 'Paid').reduce((sum, d) => sum + (d.amount || 0), 0)
   };
 
-  // Handle deal click
   const handleDealClick = (dealId) => {
     navigate(`/deals/${dealId}`);
   };
@@ -157,10 +150,9 @@ export default function DealsListDashboard() {
     <div className="space-y-6 animate-fade-in">
       
       {/* ==========================================
-          STATS ROW - Glassmorphism Pills
+          STATS ROW - Liquid Glass Pills
           ========================================== */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {/* Active Deals */}
         <div className="glass-pill px-4 py-3 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
             <span className="text-emerald-400 text-lg">📋</span>
@@ -171,8 +163,7 @@ export default function DealsListDashboard() {
           </div>
         </div>
 
-        {/* Needs Action */}
-        <div className="glass-pill px-4 py-3 flex items-center gap-3 border-amber-500/30">
+        <div className="glass-pill px-4 py-3 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
             <span className="text-amber-400 text-lg">⚡</span>
           </div>
@@ -182,7 +173,6 @@ export default function DealsListDashboard() {
           </div>
         </div>
 
-        {/* Pending Payment */}
         <div className="glass-pill px-4 py-3 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
             <span className="text-cyan-400 text-lg">💰</span>
@@ -193,8 +183,7 @@ export default function DealsListDashboard() {
           </div>
         </div>
 
-        {/* This Month */}
-        <div className="glass-pill px-4 py-3 flex items-center gap-3 border-emerald-500/30">
+        <div className="glass-pill px-4 py-3 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
             <span className="text-emerald-400 text-lg">✓</span>
           </div>
@@ -206,15 +195,15 @@ export default function DealsListDashboard() {
       </div>
 
       {/* ==========================================
-          DEAL PIPELINE SECTION
+          DEAL PIPELINE - Solid Dark Panel
           ========================================== */}
-      <div className="glass-card-strong p-4 sm:p-6 space-y-4">
+      <div className="solid-panel p-4 sm:p-6 space-y-4">
         
         {/* Header with Search */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <h2 className="text-lg font-bold text-white tracking-tight">Deal Pipeline</h2>
           
-          {/* Search - Glassmorphism Pill */}
+          {/* Search - Liquid Glass */}
           <div className="relative">
             <input
               type="text"
@@ -234,7 +223,7 @@ export default function DealsListDashboard() {
           </div>
         </div>
 
-        {/* Filter Pills */}
+        {/* Filter Pills - Liquid Glass */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-1 px-1">
           {filters.map(filter => (
             <button
@@ -243,7 +232,7 @@ export default function DealsListDashboard() {
               className={`px-4 py-2 text-xs font-semibold tracking-wide uppercase whitespace-nowrap transition-all duration-200 rounded-full ${
                 activeFilter === filter
                   ? 'bg-cyan-500 text-slate-900 shadow-lg glow-cyan-subtle'
-                  : 'glass-pill text-slate-400 hover:text-white hover:border-white/25'
+                  : 'glass-pill text-slate-400 hover:text-white'
               }`}
             >
               {filter}
@@ -251,24 +240,22 @@ export default function DealsListDashboard() {
           ))}
         </div>
 
-        {/* Deals List */}
+        {/* Deals List - Solid Dark Cards */}
         <div className="space-y-3">
           {filteredDeals.map((deal) => (
             <div
               key={deal.id}
               onClick={() => handleDealClick(deal.id)}
-              className="glass-card p-4 hover:border-cyan-500/30 hover:bg-slate-800/60 transition-all duration-200 cursor-pointer group"
+              className="solid-card p-4 transition-all duration-200 cursor-pointer group"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 
                 {/* Left: Type Icon + Deal Info */}
                 <div className="flex items-center gap-3 min-w-0">
-                  {/* Type Icon */}
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${typeConfig[deal.type]?.class || 'bg-slate-700'}`}>
                     <span className="text-lg">{typeConfig[deal.type]?.icon || '📋'}</span>
                   </div>
                   
-                  {/* Deal Details */}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-white font-semibold truncate group-hover:text-cyan-300 transition-colors">
@@ -312,7 +299,7 @@ export default function DealsListDashboard() {
           </div>
         )}
 
-        {/* Footer Stats */}
+        {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-white/5">
           <p className="text-sm text-slate-500">
             Showing <span className="text-slate-300 font-semibold">{filteredDeals.length}</span> of <span className="text-slate-300 font-semibold">{sampleDeals.length}</span> deals
