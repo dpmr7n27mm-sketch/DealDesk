@@ -6,27 +6,22 @@
 
 /* ========================================
    DEALDESK DESIGN SYSTEM
-   Blade Runner 2049 Command Center Aesthetic
+   Liquid Glass Aesthetic
    ======================================== */
 
 :root {
   /* Background */
   --bg-base: #030712;
-  --bg-elevated: #0a0f1a;
+  --bg-elevated: #0f172a;
   
   /* Accents */
-  --accent-primary: #22d3ee;   /* Cyan */
-  --accent-secondary: #10b981; /* Emerald */
+  --accent-primary: #22d3ee;
+  --accent-secondary: #10b981;
   
   /* Text */
   --text-primary: #f8fafc;
   --text-muted: #94a3b8;
   --text-faint: #64748b;
-  
-  /* Glass */
-  --glass-bg: rgba(30, 41, 59, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-border-strong: rgba(255, 255, 255, 0.2);
 }
 
 /* ========================================
@@ -43,7 +38,7 @@ html {
 
 body {
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, var(--bg-base) 0%, var(--bg-elevated) 100%);
+  background: linear-gradient(145deg, #030712 0%, #0f172a 50%, #0c1222 100%);
   background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
@@ -69,82 +64,101 @@ body {
 }
 
 /* ========================================
-   GLASSMORPHISM COMPONENTS
+   LIQUID GLASS COMPONENTS
+   True frosted glass with visible transparency
    ======================================== */
 
-/* Standard glass card - for stat boxes, deal cards, containers */
+/* Standard glass card */
 .glass-card {
-  background: rgba(30, 41, 59, 0.5);
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
-}
-
-/* Stronger glass - for more prominent elements */
-.glass-card-strong {
-  background: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 1rem;
-}
-
-/* Glass pill - for nav, filters, search, stat boxes */
-.glass-pill {
-  background: rgba(30, 41, 59, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
-}
-
-/* Glass pill strong - for bottom nav, prominent pills */
-.glass-pill-strong {
-  background: rgba(30, 41, 59, 0.65);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 9999px;
-}
-
-/* Glass nav - specifically for bottom navigation */
-.glass-nav {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
   box-shadow: 
-    0 4px 30px rgba(0, 0, 0, 0.3),
+    0 4px 24px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Glass toggle - for Creator/Buyer toggle */
-.glass-toggle {
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
+/* Stronger glass card - more visible */
+.glass-card-strong {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Glass input - for search bars, form inputs */
+/* Glass pill - for stats, filters, tags */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Strong glass pill - more prominent */
+.glass-pill-strong {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Bottom navigation - most prominent glass */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Toggle pill */
+.glass-toggle {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  box-shadow: 
+    0 2px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Input fields */
 .glass-input {
-  background: rgba(30, 41, 59, 0.4);
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 9999px;
   color: var(--text-primary);
   transition: all 0.2s ease;
 }
 
 .glass-input:focus {
-  background: rgba(30, 41, 59, 0.5);
-  border-color: rgba(34, 211, 238, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(34, 211, 238, 0.4);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+  box-shadow: 
+    0 0 0 3px rgba(34, 211, 238, 0.1),
+    0 0 20px rgba(34, 211, 238, 0.1);
 }
 
 .glass-input::placeholder {
@@ -152,32 +166,54 @@ body {
 }
 
 /* ========================================
+   ACCENT GLASS VARIANTS
+   ======================================== */
+
+.glass-cyan {
+  background: rgba(34, 211, 238, 0.08);
+  border-color: rgba(34, 211, 238, 0.2);
+}
+
+.glass-emerald {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.glass-amber {
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.2);
+}
+
+/* ========================================
    GLOW EFFECTS
    ======================================== */
 
 .glow-cyan {
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+  box-shadow: 
+    0 0 20px rgba(34, 211, 238, 0.4),
+    0 0 40px rgba(34, 211, 238, 0.2);
 }
 
 .glow-emerald {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  box-shadow: 
+    0 0 20px rgba(16, 185, 129, 0.4),
+    0 0 40px rgba(16, 185, 129, 0.2);
 }
 
 .glow-cyan-subtle {
-  box-shadow: 0 0 12px rgba(34, 211, 238, 0.15);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.25);
 }
 
 .glow-emerald-subtle {
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
 }
 
-/* Text glow */
 .text-glow-cyan {
-  text-shadow: 0 0 12px rgba(34, 211, 238, 0.5);
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
 }
 
 .text-glow-emerald {
-  text-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
 }
 
 /* ========================================
@@ -193,7 +229,6 @@ body {
   display: none;
 }
 
-/* Custom thin scrollbar for content areas */
 .scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
@@ -248,7 +283,7 @@ body {
     opacity: 1;
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.5;
   }
 }
 
@@ -265,7 +300,7 @@ body {
 }
 
 /* ========================================
-   STATUS PILL COLORS
+   STATUS PILLS
    ======================================== */
 
 .status-new {
@@ -333,36 +368,34 @@ body {
    ======================================== */
 
 .type-license {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(99, 102, 241, 0.15);
   color: #a5b4fc;
 }
 
 .type-stems {
-  background: rgba(34, 211, 238, 0.2);
+  background: rgba(34, 211, 238, 0.15);
   color: #67e8f9;
 }
 
 .type-commission {
-  background: rgba(232, 121, 249, 0.2);
+  background: rgba(232, 121, 249, 0.15);
   color: #f0abfc;
 }
 
 .type-custom {
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(139, 92, 246, 0.15);
   color: #c4b5fd;
 }
 
 /* ========================================
-   UTILITY OVERRIDES
+   UTILITY
    ======================================== */
 
-/* Ensure proper stacking */
 .z-header { z-index: 40; }
 .z-nav { z-index: 50; }
 .z-modal { z-index: 60; }
 .z-toast { z-index: 70; }
 
-/* Safe area padding for mobile */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .pb-safe {
     padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
