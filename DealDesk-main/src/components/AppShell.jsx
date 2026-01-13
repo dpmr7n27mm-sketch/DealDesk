@@ -204,10 +204,10 @@ export default function AppShell() {
                 to={item.path}
                 className={`flex flex-col items-center justify-center px-4 py-2 min-w-[60px] rounded-full transition-all duration-200 ${
                   isActive
-                    ? 'text-violet-400'
+                    ? 'text-purple-300'
                     : 'text-slate-500 hover:text-slate-300 active:scale-95'
                 }`}
-                style={isActive ? { filter: 'drop-shadow(0 0 8px rgba(109, 40, 217, 0.6))' } : {}}
+                style={isActive ? { filter: 'drop-shadow(0 0 8px rgba(88, 28, 135, 0.6))' } : {}}
               >
                 <span className={`transition-all duration-200 ${isActive ? 'scale-110' : ''}`}>
                   <Icon />
